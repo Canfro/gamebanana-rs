@@ -1,2 +1,3 @@
-pub(crate) mod endpoints;
-mod model;
+pub mod endpoints;
+pub mod model;
+pub mod tests;

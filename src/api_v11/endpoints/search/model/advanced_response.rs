@@ -1,9 +1,7 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api_v11::model::metadata::Metadata;
-
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct AdvancedResponse {
+pub struct AdvancedResponse {
     #[serde(rename = "_aMetadata")]
     metadata: Metadata,
 
@@ -11,8 +9,20 @@ pub(crate) struct AdvancedResponse {
     records: Vec<AdvancedRecord>,
 }
 
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+pub struct Metadata {
+    #[serde(rename = "_nRecordCount")]
+    record_count: u64,
+
+    #[serde(rename = "_bIsComplete")]
+    is_complete: bool,
+
+    #[serde(rename = "_nPerpage")]
+    per_page: u64,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct AdvancedRecord {
+pub struct AdvancedRecord {
     #[serde(rename = "_idRow")]
     row: u64,
 
@@ -49,26 +59,35 @@ pub(crate) struct AdvancedRecord {
     #[serde(rename = "_aSubmitter")]
     submitter: Submitter,
 
-    #[serde(rename = "_aGame")]
-    game: Game,
-
-    #[serde(rename = "_aRootCategory")]
-    root_category: RootCategory,
+    #[serde(rename = "_sIncludeVariableName")]
+    include_variable_name: String,
 
     #[serde(rename = "_sVersion")]
     version: String,
 
-    #[serde(rename = "_bIsObsolete")]
-    is_obsolete: bool,
+    #[serde(rename = "_akState")]
+    ak_state: String,
+
+    #[serde(rename = "_sState")]
+    state: String,
+
+    #[serde(rename = "_sType")]
+    ty: String,
+
+    #[serde(rename = "_nUserCount")]
+    user_count: u64,
+
+    #[serde(rename = "_sbIsSafe")]
+    is_safe: bool,
+
+    #[serde(rename = "_aFeatures")]
+    features: Features,
 
     #[serde(rename = "_sInitialVisibility")]
     initial_visibility: String,
 
-    #[serde(rename = "_nLikeCount")]
-    like_count: Option<u64>,
-
-    #[serde(rename = "_nPostCount")]
-    post_count: Option<u64>,
+    #[serde(rename = "_bHasContentRatings")]
+    has_content_ratings: bool,
 
     #[serde(rename = "_bWasFeatured")]
     was_featured: bool,
@@ -81,21 +100,27 @@ pub(crate) struct AdvancedRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct PreviewMedia {
+pub struct PreviewMedia {
     #[serde(rename = "_aImages")]
     images: Vec<Image>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct Image {
+pub struct Image {
     #[serde(rename = "_sType")]
-    image_type: String,
+    ty: String,
+
+    #[serde(rename = "_sUrl")]
+    url: Option<String>,
 
     #[serde(rename = "_sBaseUrl")]
-    base_url: String,
+    base_url: Option<String>,
+
+    #[serde(rename = "_sCaption")]
+    caption: Option<String>,
 
     #[serde(rename = "_sFile")]
-    file: String,
+    file: Option<String>,
 
     #[serde(rename = "_sFile100")]
     file100: Option<String>,
@@ -126,7 +151,7 @@ pub(crate) struct Image {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct Submitter {
+pub struct Submitter {
     #[serde(rename = "_idRow")]
     row: u64,
 
@@ -145,39 +170,57 @@ pub(crate) struct Submitter {
     #[serde(rename = "_sAvatarUrl")]
     avatar_url: String,
 
+    #[serde(rename = "_aClearanceLevels")]
+    clearance_levels: Option<Vec<String>>,
+
     #[serde(rename = "_sHdAvatarUrl")]
     hd_avatar_url: Option<String>,
 
     #[serde(rename = "_sUpicUrl")]
     upic_url: Option<String>,
 
+    #[serde(rename = "_sHovatarUrl")]
+    hovatar_url: Option<String>,
+
+    #[serde(rename = "_aSubjectShaper")]
+    subject_shaper: Option<SubjectShaper>,
+
     #[serde(rename = "_sSubjectShaperCssCode")]
     subject_shaper_css_code: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct Game {
-    #[serde(rename = "_idRow")]
-    row: u64,
+pub struct SubjectShaper {
+    #[serde(rename = "_sBorderStyle")]
+    border_style: String,
 
-    #[serde(rename = "_sName")]
-    name: String,
+    #[serde(rename = "_sFont")]
+    font: String,
 
-    #[serde(rename = "_sProfileUrl")]
-    profile_url: String,
+    #[serde(rename = "_sTextColor")]
+    text_color: String,
 
-    #[serde(rename = "_sIconUrl")]
-    icon_url: String,
+    #[serde(rename = "_sTextHoverColor")]
+    text_hover_color: String,
+
+    #[serde(rename = "_sBorderColor")]
+    border_color: Option<String>,
+
+    #[serde(rename = "_sBorderHoverColor")]
+    border_hover_color: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub(crate) struct RootCategory {
-    #[serde(rename = "_sName")]
-    name: String,
+pub struct Features {
+    #[serde(rename = "_sProfileModuleUrl")]
+    profile_module_url: String,
 
-    #[serde(rename = "_sProfileUrl")]
-    profile_url: String,
+    #[serde(rename = "_sNavigatorTabUrl")]
+    navigator_tab_url: String,
 
-    #[serde(rename = "_sIconUrl")]
-    icon_url: String,
+    #[serde(rename = "_sMainUrl")]
+    main_url: String,
+
+    #[serde(rename = "_sSettingsUrl")]
+    settings_url: String,
 }

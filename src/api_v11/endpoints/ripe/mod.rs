@@ -1,1 +1,1 @@
-pub(crate) mod endpoints;
+pub mod endpoints;

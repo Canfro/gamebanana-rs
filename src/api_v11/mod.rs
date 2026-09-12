@@ -1,2 +1,2 @@
-pub(crate) mod endpoints;
-pub(crate) mod model;
+pub mod endpoints;
+pub mod model;
