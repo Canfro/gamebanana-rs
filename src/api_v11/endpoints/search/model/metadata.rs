@@ -47,4 +47,14 @@ pub enum Metadata {
         #[serde(rename = "_secTimeLeft")]
         sec_time_left: i64,
     },
+    PreviewMediaJam {
+        #[serde(rename = "_nBounty")]
+        bounty: u64,
+
+        #[serde(rename = "_sSnippet")]
+        snippet: String,
+
+        #[serde(rename = "_secTimeLeft")]
+        sec_time_left: i64,
+    },
 }

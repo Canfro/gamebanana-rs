@@ -8,6 +8,8 @@ pub mod advanced_contest_record;
 pub mod advanced_event_record;
 pub mod advanced_game_record;
 pub mod advanced_idea_record;
+pub mod advanced_initiative_record;
+pub mod advanced_jam_record;
 pub mod advanced_record;
 pub mod advanced_record_common;
 pub mod advanced_response;

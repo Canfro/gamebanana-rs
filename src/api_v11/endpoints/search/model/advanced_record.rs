@@ -6,6 +6,7 @@ use crate::api_v11::endpoints::search::model::{
     advanced_club_record::AdvancedClubRecord, advanced_concept_record::AdvancedConceptRecord,
     advanced_contest_record::AdvancedContestRecord, advanced_event_record::AdvancedEventRecord,
     advanced_game_record::AdvancedGameRecord, advanced_idea_record::AdvancedIdeaRecord,
+    advanced_initiative_record::AdvancedInitiativeRecord, advanced_jam_record::AdvancedJamRecord,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -40,4 +41,10 @@ pub enum AdvancedRecord {
 
     #[serde(rename = "Idea")]
     Idea(AdvancedIdeaRecord),
+
+    #[serde(rename = "Initiative")]
+    Initiative(AdvancedInitiativeRecord),
+
+    #[serde(rename = "Jam")]
+    Jam(AdvancedJamRecord),
 }
