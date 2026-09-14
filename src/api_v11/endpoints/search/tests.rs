@@ -1,6 +1,6 @@
 use crate::{
     GamebananaApiV11,
-    api_v11::endpoints::search::model::advanced_params::{Order, Section},
+    api_v11::endpoints::search::model::{order::Order, section::Section},
 };
 
 #[tokio::test]
@@ -13,10 +13,10 @@ async fn test_advanced_search() {
     let response = api
         .search()
         .advanced(
-            "fix",
-            None,
-            Some(15),
-            Some(Section::Mod),
+            "the",
+            Some(1),
+            Some(50),
+            Some(Section::Article),
             Some(Order::BestMatch),
             None,
             None,

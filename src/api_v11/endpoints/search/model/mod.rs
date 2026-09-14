@@ -1,2 +1,15 @@
-pub mod advanced_params;
+pub mod advanced_app_record;
+pub mod advanced_article_record;
+pub mod advanced_record;
 pub mod advanced_response;
+pub mod features;
+pub mod field;
+pub mod game;
+pub mod image;
+pub mod metadata;
+pub mod order;
+pub mod preview_media;
+pub mod root_category;
+pub mod section;
+pub mod subject_shaper;
+pub mod submitter;

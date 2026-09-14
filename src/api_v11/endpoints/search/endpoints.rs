@@ -1,8 +1,7 @@
 use crate::{
     GamebananaApiV11,
     api_v11::endpoints::search::model::{
-        advanced_params::{Field, Order, Section},
-        advanced_response::AdvancedResponse,
+        advanced_response::AdvancedResponse, field::Field, order::Order, section::Section,
     },
     error::Error,
 };
