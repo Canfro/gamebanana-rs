@@ -16,7 +16,7 @@ async fn test_advanced_search() {
             "the",
             Some(1),
             Some(50),
-            Some(Section::Bug),
+            Some(Section::Idea),
             Some(Order::BestMatch),
             None,
             None,
