@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
-pub struct Metadata {
+pub struct AdvancedResponseMetadata {
     #[serde(rename = "_nRecordCount")]
     record_count: u64,
 

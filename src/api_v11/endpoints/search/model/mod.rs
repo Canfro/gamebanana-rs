@@ -1,14 +1,16 @@
 pub mod advanced_app_record;
 pub mod advanced_article_record;
+pub mod advanced_bug_search;
 pub mod advanced_record;
 pub mod advanced_response;
+pub mod advanced_response_metadata;
 pub mod features;
 pub mod field;
 pub mod game;
 pub mod image;
-pub mod metadata;
 pub mod order;
 pub mod preview_media;
+pub mod preview_media_metadata;
 pub mod root_category;
 pub mod section;
 pub mod subject_shaper;
