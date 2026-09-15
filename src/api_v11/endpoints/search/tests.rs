@@ -1,27 +1,31 @@
 use crate::{
     GamebananaApiV11,
-    api_v11::endpoints::search::model::{order::Order, section::Section},
+    api_v11::endpoints::search::model::{field::Field, order::Order, section::Section},
 };
 
 #[tokio::test]
 async fn test_advanced_search() {
-    let api = GamebananaApiV11::new();
-
-    assert!(api.is_ok());
-    let api = api.unwrap();
+    let api = GamebananaApiV11::new().unwrap();
 
     let response = api
         .search()
         .advanced(
             "the",
-            Some(1),
+            Some(4),
             Some(50),
-            Some(Section::Jam),
-            Some(Order::BestMatch),
-            None,
+            Some(Section::Wip),
+            Some(Order::Date),
+            Some(&[
+                Field::Name,
+                Field::Description,
+                Field::Article,
+                Field::Attribs,
+                Field::Studio,
+                Field::Owner,
+                Field::Credits,
+            ]),
             None,
         )
-        .await;
-
-    assert!(response.is_ok());
+        .await
+        .unwrap();
 }

@@ -1,9 +1,12 @@
+use anyhow::Error;
+use serde::Deserialize;
+use serde_json::Value;
+
 use crate::{
     GamebananaApiV11,
     api_v11::endpoints::search::model::{
         advanced_response::AdvancedResponse, field::Field, order::Order, section::Section,
     },
-    error::Error,
 };
 
 #[derive(Debug, Clone, Copy)]
@@ -28,11 +31,7 @@ impl<'a> Search<'a> {
         fields: Option<&[Field]>,
         game_row: Option<i64>,
     ) -> Result<AdvancedResponse, Error> {
-        let url = self
-            .api
-            .base_url
-            .join("Util/Search/Results")
-            .map_err(|_| Error::UrlError)?;
+        let url = self.api.base_url.join("Util/Search/Results")?;
 
         let mut builder = self
             .api
@@ -53,27 +52,36 @@ impl<'a> Search<'a> {
             builder = builder.query(&[("_sOrder", order.as_str())]);
         }
         if let Some(fields) = fields {
-            builder = builder.query(&[(
-                "_csvFields",
-                fields.iter().map(|f| f.as_str()).collect::<Vec<&str>>(),
-            )]);
+            let fields = fields
+                .iter()
+                .map(|f| f.as_str())
+                .collect::<Vec<&str>>()
+                .join(",");
+
+            builder = builder.query(&[("_csvFields", fields)]);
         }
         if let Some(game_row) = game_row {
             builder = builder.query(&[("_idGameRow", game_row)]);
         }
 
-        let response = builder.send().await.map_err(|_| Error::FailedToSend)?;
-        let body = response.text().await.unwrap();
+        let request = builder.build()?;
+        let response = self.api.client.execute(request).await?;
+        let body = response.text().await?;
+        let json = serde_json::from_str::<Value>(body.as_str())?;
 
-        println!(
-            "{}",
-            serde_json::to_string_pretty(
-                &serde_json::from_str::<serde_json::Value>(body.as_str()).unwrap()
-            )
-            .unwrap()
-        );
+        let mut deserializer = serde_json::Deserializer::from_str(body.as_str());
+        let res = serde_path_to_error::deserialize::<_, AdvancedResponse>(&mut deserializer);
 
-        Ok(serde_json::from_str(body.as_str()).unwrap())
+        println!("{}", serde_json::to_string_pretty(&json)?);
+
+        match res {
+            Ok(response) => Ok(response),
+            Err(e) => {
+                println!("Path: {}", e.path());
+                println!("Error: {}", e.inner());
+                Err(e.into())
+            }
+        }
     }
 
     pub async fn modificators(&self) {

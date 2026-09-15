@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api_v11::endpoints::search::model::{
-    advanced_record_common::AdvancedCommonRecord, game::Game, root_category::RootCategory,
+    advanced_common_record::AdvancedCommonRecord, category::Category, game::Game,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -16,7 +16,7 @@ pub struct AdvancedEventRecord {
     game: Game,
 
     #[serde(rename = "_aRootCategory")]
-    root_category: RootCategory,
+    root_category: Category,
 
     #[serde(rename = "_nPostCount")]
     post_count: Option<u64>,

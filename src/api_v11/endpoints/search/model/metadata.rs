@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -56,5 +58,47 @@ pub enum Metadata {
 
         #[serde(rename = "_secTimeLeft")]
         sec_time_left: i64,
+    },
+    PreviewMediaPoll {
+        #[serde(rename = "_aResults")]
+        results: HashMap<String, u64>,
+
+        #[serde(rename = "_nTotalVotes")]
+        total_votes: u64,
+    },
+    PreviewMediaQuestion {
+        #[serde(rename = "_sState")]
+        state: String,
+
+        #[serde(rename = "_sSnippet")]
+        snippet: String,
+
+        #[serde(rename = "_nPostCount")]
+        post_count: u64,
+    },
+    PreviewMediaRequest {
+        #[serde(rename = "_nBounty")]
+        bounty: u64,
+
+        #[serde(rename = "_sSnippet")]
+        snippet: String,
+    },
+    PreviewMediaAudio {
+        #[serde(rename = "_sAudioUrl")]
+        audio_url: String,
+    },
+    PreviewMediaStudio {
+        #[serde(rename = "_nMemberCount")]
+        member_count: u64,
+
+        #[serde(rename = "_sGamesDeveloped")]
+        games_developed: String,
+    },
+    PreviewMediaThread {
+        #[serde(rename = "_sSnippet")]
+        snippet: String,
+
+        #[serde(rename = "_nPostCount")]
+        post_count: u64,
     },
 }

@@ -5,7 +5,7 @@ use crate::api_v11::endpoints::search::model::{
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedBlogRecord {
+pub struct AdvancedScriptRecord {
     #[serde(flatten)]
     common: AdvancedCommonRecord,
 
@@ -17,6 +17,15 @@ pub struct AdvancedBlogRecord {
 
     #[serde(rename = "_aRootCategory")]
     root_category: Category,
+
+    #[serde(rename = "_sRawCode")]
+    raw_code: String,
+
+    #[serde(rename = "_bIsObsolete")]
+    is_obsolete: bool,
+
+    #[serde(rename = "_nLikeCount")]
+    like_count: Option<u64>,
 
     #[serde(rename = "_nPostCount")]
     post_count: Option<u64>,

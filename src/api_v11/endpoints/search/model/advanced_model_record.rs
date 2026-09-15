@@ -1,0 +1,44 @@
+use serde::{Deserialize, Serialize};
+
+use crate::api_v11::{
+    endpoints::search::model::{
+        advanced_common_record::AdvancedCommonRecord, category::Category, studio::Studio,
+    },
+    model::string_or_bool::StringOrBool,
+};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AdvancedModelRecord {
+    #[serde(flatten)]
+    common: AdvancedCommonRecord,
+
+    #[serde(rename = "_aTags")]
+    tags: Vec<String>,
+
+    #[serde(rename = "_aRootCategory")]
+    root_category: Category,
+
+    #[serde(rename = "_bIsMapped")]
+    is_mapped: bool,
+
+    #[serde(rename = "_bIsTextured")]
+    is_textured: bool,
+
+    #[serde(rename = "_xIsAnimated")]
+    is_animated: StringOrBool,
+
+    #[serde(rename = "_nLikeCount")]
+    like_count: Option<u64>,
+
+    #[serde(rename = "_nPostCount")]
+    post_count: Option<u64>,
+
+    #[serde(rename = "_bWasFeatured")]
+    was_featured: bool,
+
+    #[serde(rename = "_aStudio")]
+    studio: Option<Studio>,
+
+    #[serde(rename = "_nViewCount")]
+    view_count: u64,
+}

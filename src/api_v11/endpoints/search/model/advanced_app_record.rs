@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api_v11::endpoints::search::model::{
-    advanced_record_common::AdvancedCommonRecord, features::Features,
+    advanced_common_record::AdvancedCommonRecord, features::Features,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api_v11::endpoints::search::model::advanced_record_common::AdvancedCommonRecord;
+use crate::api_v11::endpoints::search::model::advanced_common_record::AdvancedCommonRecord;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedBugRecord {

@@ -5,7 +5,7 @@ use crate::api_v11::endpoints::search::model::{
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedBlogRecord {
+pub struct AdvancedSoundRecord {
     #[serde(flatten)]
     common: AdvancedCommonRecord,
 
@@ -17,6 +17,12 @@ pub struct AdvancedBlogRecord {
 
     #[serde(rename = "_aRootCategory")]
     root_category: Category,
+
+    #[serde(rename = "_aSubCategory")]
+    sub_category: Option<Category>,
+
+    #[serde(rename = "_bIsObsolete")]
+    is_obsolete: bool,
 
     #[serde(rename = "_nPostCount")]
     post_count: Option<u64>,

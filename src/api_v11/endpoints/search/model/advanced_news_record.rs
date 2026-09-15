@@ -5,7 +5,7 @@ use crate::api_v11::endpoints::search::model::{
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedBlogRecord {
+pub struct AdvancedNewsRecord {
     #[serde(flatten)]
     common: AdvancedCommonRecord,
 
