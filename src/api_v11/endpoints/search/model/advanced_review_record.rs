@@ -5,14 +5,14 @@ use crate::api_v11::endpoints::search::model::advanced_common_record::AdvancedCo
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedReviewRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_aTags")]
-    tags: Vec<String>,
+    pub tags: Vec<String>,
 
     #[serde(rename = "_bWasFeatured")]
-    was_featured: bool,
+    pub was_featured: bool,
 
     #[serde(rename = "_nViewCount")]
-    view_count: u64,
+    pub view_count: u64,
 }

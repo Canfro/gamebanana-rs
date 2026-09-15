@@ -43,6 +43,7 @@ pub mod preview_media;
 pub mod rating_breakdown;
 pub mod ratings_summary;
 pub mod section;
+pub mod section_match_count;
 pub mod studio;
 pub mod subject_shaper;
 pub mod submitter;

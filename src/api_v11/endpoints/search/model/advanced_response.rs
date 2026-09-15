@@ -7,8 +7,8 @@ use crate::api_v11::endpoints::search::model::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedResponse {
     #[serde(rename = "_aMetadata")]
-    metadata: Metadata,
+    pub metadata: Metadata,
 
     #[serde(rename = "_aRecords")]
-    records: Vec<AdvancedRecord>,
+    pub records: Vec<AdvancedRecord>,
 }

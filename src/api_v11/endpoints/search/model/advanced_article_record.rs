@@ -7,26 +7,26 @@ use crate::api_v11::endpoints::search::model::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedArticleRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_aTags")]
-    tags: Vec<String>,
+    pub tags: Vec<String>,
 
     #[serde(rename = "_aGame")]
-    game: Game,
+    pub game: Game,
 
     #[serde(rename = "_aRootCategory")]
-    root_category: Category,
+    pub root_category: Category,
 
     #[serde(rename = "_bIsObsolete")]
-    is_obsolete: bool,
+    pub is_obsolete: bool,
 
     #[serde(rename = "_nPostCount")]
-    post_count: Option<u64>,
+    pub post_count: Option<u64>,
 
     #[serde(rename = "_bWasFeatured")]
-    was_featured: bool,
+    pub was_featured: bool,
 
     #[serde(rename = "_nViewCount")]
-    view_count: u64,
+    pub view_count: u64,
 }

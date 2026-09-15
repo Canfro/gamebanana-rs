@@ -5,41 +5,41 @@ use crate::api_v11::endpoints::search::model::advanced_common_record::AdvancedCo
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedJamRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_aTags")]
-    tags: Vec<String>,
+    pub tags: Vec<String>,
 
     #[serde(rename = "_sState")]
-    state: String,
+    pub state: String,
 
     #[serde(rename = "_sStateMessage")]
-    state_message: String,
+    pub state_message: String,
 
     #[serde(rename = "_aAdditionalRewards")]
-    additional_rewards: Option<Vec<String>>,
+    pub additional_rewards: Option<Vec<String>>,
 
     #[serde(rename = "_nBounty")]
-    bounty: u64,
+    pub bounty: u64,
 
     #[serde(rename = "_tsLastBoostDate")]
-    last_boost_date: i64,
+    pub last_boost_date: i64,
 
     #[serde(rename = "_nEntryCount")]
-    entry_count: u64,
+    pub entry_count: u64,
 
     #[serde(rename = "_tsDeadline")]
-    deadline: i64,
+    pub deadline: i64,
 
     #[serde(rename = "_tsDateUpdated")]
-    date_updated: Option<i64>,
+    pub date_updated: Option<i64>,
 
     #[serde(rename = "_nLikeCount")]
-    like_count: Option<u64>,
+    pub like_count: Option<u64>,
 
     #[serde(rename = "_nPostCount")]
-    post_count: Option<u64>,
+    pub post_count: Option<u64>,
 
     #[serde(rename = "_nViewCount")]
-    view_count: u64,
+    pub view_count: u64,
 }

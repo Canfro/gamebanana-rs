@@ -5,14 +5,14 @@ use crate::api_v11::endpoints::search::model::advanced_common_record::AdvancedCo
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedGameRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_sAbbreviation")]
-    abbreviation: String,
+    pub abbreviation: String,
 
     #[serde(rename = "_sHomepage")]
-    homepage: String,
+    pub homepage: String,
 
     #[serde(rename = "_dsReleaseDate")]
-    release_date: String,
+    pub release_date: String,
 }

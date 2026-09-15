@@ -3,14 +3,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Studio {
     #[serde(rename = "_sName")]
-    name: String,
+    pub name: String,
 
     #[serde(rename = "_sBannerUrl")]
-    banner_url: String,
+    pub banner_url: String,
 
     #[serde(rename = "_sProfileUrl")]
-    profile_url: String,
+    pub profile_url: String,
 
     #[serde(rename = "_sFlagUrl")]
-    flag_url: String,
+    pub flag_url: String,
 }

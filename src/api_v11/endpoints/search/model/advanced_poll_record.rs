@@ -7,35 +7,35 @@ use crate::api_v11::endpoints::search::model::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedPollRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_aTags")]
-    tags: Vec<String>,
+    pub tags: Vec<String>,
 
     #[serde(rename = "_aGame")]
-    game: Game,
+    pub game: Game,
 
     #[serde(rename = "_aRootCategory")]
-    root_category: Category,
+    pub root_category: Category,
 
     #[serde(rename = "_dsLastDayOfVoting")]
-    last_day_of_voting: String,
+    pub last_day_of_voting: String,
 
     #[serde(rename = "_akState")]
-    ak_state: String,
+    pub ak_state: String,
 
     #[serde(rename = "_sState")]
-    state: String,
+    pub state: String,
 
     #[serde(rename = "_bIsOfficial")]
-    is_official: bool,
+    pub is_official: bool,
 
     #[serde(rename = "_nVoteCount")]
-    vote_count: u64,
+    pub vote_count: u64,
 
     #[serde(rename = "_bWasFeatured")]
-    was_featured: bool,
+    pub was_featured: bool,
 
     #[serde(rename = "_nViewCount")]
-    view_count: u64,
+    pub view_count: u64,
 }

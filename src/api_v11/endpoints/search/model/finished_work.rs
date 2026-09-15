@@ -5,20 +5,20 @@ use crate::api_v11::endpoints::search::model::preview_media::PreviewMedia;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct FinishedWork {
     #[serde(rename = "_sName")]
-    name: String,
+    pub name: String,
 
     #[serde(rename = "_sModelName")]
-    model_name: String,
+    pub model_name: String,
 
     #[serde(rename = "_sProfileUrl")]
-    profile_url: String,
+    pub profile_url: String,
 
     #[serde(rename = "_aPreviewMedia")]
-    preview_media: PreviewMedia,
+    pub preview_media: PreviewMedia,
 
     #[serde(rename = "_tsDateAdded")]
-    date_added: i64,
+    pub date_added: i64,
 
     #[serde(rename = "_sInitialVisibility")]
-    initial_visibility: String,
+    pub initial_visibility: String,
 }

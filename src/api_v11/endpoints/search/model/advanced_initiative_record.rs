@@ -5,14 +5,14 @@ use crate::api_v11::endpoints::search::model::advanced_common_record::AdvancedCo
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedInitiativeRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_sMissionStatement")]
-    mission_statement: String,
+    pub mission_statement: String,
 
     #[serde(rename = "_aGoals")]
-    goals: Vec<String>,
+    pub goals: Vec<String>,
 
     #[serde(rename = "_dsCompletionDate")]
-    completion_date: String,
+    pub completion_date: String,
 }

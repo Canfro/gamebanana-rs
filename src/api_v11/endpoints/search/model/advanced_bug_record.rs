@@ -5,23 +5,23 @@ use crate::api_v11::endpoints::search::model::advanced_common_record::AdvancedCo
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AdvancedBugRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    pub common: AdvancedCommonRecord,
 
     #[serde(rename = "_akResolution")]
-    ak_resolution: String,
+    pub ak_resolution: String,
 
     #[serde(rename = "_sResolution")]
-    resolution: String,
+    pub resolution: String,
 
     #[serde(rename = "_akPriority")]
-    ak_priority: String,
+    pub ak_priority: String,
 
     #[serde(rename = "_sPriority")]
-    priority: String,
+    pub priority: String,
 
     #[serde(rename = "_sSourceUrl")]
-    source_url: String,
+    pub source_url: String,
 
     #[serde(rename = "_nPostCount")]
-    post_count: Option<u64>,
+    pub post_count: Option<u64>,
 }
