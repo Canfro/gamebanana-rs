@@ -3,10 +3,9 @@ use anyhow::Error;
 use crate::{
     GamebananaApiV11,
     api_v11::model::search::{
-        advanced::{
-            advanced_response::AdvancedResponse, field::Field, order::Order, section::Section,
-        },
+        advanced::{advanced_response::AdvancedResponse, field::Field, order::Order},
         modificators::modificators_response::ModificatorsResponse,
+        section::Section,
     },
 };
 

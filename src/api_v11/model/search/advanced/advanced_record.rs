@@ -7,9 +7,9 @@ use crate::api_v11::model::search::advanced::{
     advanced_contest_record::AdvancedContestRecord, advanced_event_record::AdvancedEventRecord,
     advanced_game_record::AdvancedGameRecord, advanced_idea_record::AdvancedIdeaRecord,
     advanced_initiative_record::AdvancedInitiativeRecord, advanced_jam_record::AdvancedJamRecord,
-    advanced_mod_record::AdvancedModRecord, advanced_model_record::AdvancedModelRecord,
-    advanced_news_record::AdvancedNewsRecord, advanced_poll_record::AdvancedPollRecord,
-    advanced_project_record::AdvancedProjectRecord,
+    advanced_member_record::AdvancedMemberRecord, advanced_mod_record::AdvancedModRecord,
+    advanced_model_record::AdvancedModelRecord, advanced_news_record::AdvancedNewsRecord,
+    advanced_poll_record::AdvancedPollRecord, advanced_project_record::AdvancedProjectRecord,
     advanced_question_record::AdvancedQuestionRecord,
     advanced_request_record::AdvancedRequestRecord, advanced_review_record::AdvancedReviewRecord,
     advanced_script_record::AdvancedScriptRecord, advanced_sound_record::AdvancedSoundRecord,
@@ -63,6 +63,9 @@ pub enum AdvancedRecord {
 
     #[serde(rename = "Model")]
     Model(AdvancedModelRecord),
+
+    #[serde(rename = "Member")]
+    Member(AdvancedMemberRecord),
 
     #[serde(rename = "News")]
     News(AdvancedNewsRecord),

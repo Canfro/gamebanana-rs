@@ -1,11 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api_v11::model::{
-    search::{
-        advanced::advanced_common_record::AdvancedCommonRecord, advanced::category::Category,
-        advanced::studio::Studio,
-    },
-    string_or_bool::StringOrBool,
+use crate::api_v11::model::search::advanced::{
+    advanced_common_record::AdvancedCommonRecord, category::Category, string_or_bool::StringOrBool,
+    studio::Studio,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

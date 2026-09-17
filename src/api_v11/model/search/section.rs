@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
+use strum::EnumIter;
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, EnumIter)]
 pub enum Section {
     App,
     Article,
