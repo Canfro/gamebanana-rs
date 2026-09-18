@@ -3,8 +3,10 @@ use anyhow::Error;
 use crate::{
     GamebananaApi,
     api::model::search::{
-        advanced::{advanced_response::AdvancedResponse, field::Field, order::Order},
+        advanced::{advanced_record::AdvancedRecord, field::Field, order::Order},
+        game::Game,
         modificators::modificators_response::ModificatorsResponse,
+        search_response::SearchResponse,
         section::Section,
     },
 };
@@ -30,7 +32,7 @@ impl<'a> Search<'a> {
         order: Option<Order>,
         fields: Option<&[Field]>,
         game_row: Option<i64>,
-    ) -> Result<AdvancedResponse, Error> {
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
         let url = self.api.base_url.join("Util/Search/Results")?;
 
         let mut builder = self
@@ -98,8 +100,24 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn games_by_name(&self) {
-        todo!()
+    pub async fn games_by_name(
+        &self,
+        name: &str,
+        page: Option<u64>,
+        per_page: Option<u64>,
+    ) -> Result<SearchResponse<Game>, Error> {
+        let url = self.api.base_url.join("Util/Game/NameMatch")?;
+
+        let mut builder = self.api.client.get(url).query(&[("_sName", name)]);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn tags_by_text(&self) {

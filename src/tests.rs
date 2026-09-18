@@ -55,3 +55,13 @@ async fn suggestions() {
             .unwrap();
     }
 }
+
+#[tokio::test]
+async fn games_by_name() {
+    let api = GamebananaApi::new().unwrap();
+    let res = api
+        .search()
+        .games_by_name("the", Some(1), Some(50))
+        .await
+        .unwrap();
+}
