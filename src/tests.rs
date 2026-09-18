@@ -1,8 +1,8 @@
 use strum::IntoEnumIterator;
 
 use crate::{
-    GamebananaApiV11,
-    api_v11::model::search::{
+    GamebananaApi,
+    api::model::search::{
         advanced::{field::Field, order::Order},
         section::Section,
     },
@@ -11,7 +11,7 @@ use crate::{
 #[tokio::test]
 async fn advanced_search() {
     for section in Section::iter() {
-        let api = GamebananaApiV11::new().unwrap();
+        let api = GamebananaApi::new().unwrap();
         let res = api
             .search()
             .advanced(
@@ -39,7 +39,19 @@ async fn advanced_search() {
 #[tokio::test]
 async fn modificators() {
     for section in Section::iter() {
-        let api = GamebananaApiV11::new().unwrap();
+        let api = GamebananaApi::new().unwrap();
         let res = api.search().modificators(section).await.unwrap();
+    }
+}
+
+#[tokio::test]
+async fn suggestions() {
+    for section in Section::iter() {
+        let api = GamebananaApi::new().unwrap();
+        let res = api
+            .search()
+            .suggestions("the", section, None)
+            .await
+            .unwrap();
     }
 }
