@@ -4,3 +4,4 @@ pub mod modificators;
 pub mod records_metadata;
 pub mod search_response;
 pub mod section;
+pub mod tags_by_text;

@@ -8,6 +8,7 @@ use crate::{
         modificators::modificators_response::ModificatorsResponse,
         search_response::SearchResponse,
         section::Section,
+        tags_by_text::tag::Tag,
     },
 };
 
@@ -120,8 +121,20 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn tags_by_text(&self) {
-        todo!()
+    pub async fn tags_by_text(
+        &self,
+        tag: &str,
+        game_row: Option<i64>,
+    ) -> Result<SearchResponse<Tag>, Error> {
+        let url = self.api.base_url.join("Util/Generic/Tags")?;
+
+        let mut builder = self.api.client.get(url).query(&[("_sTag", tag)]);
+
+        if let Some(game_row) = game_row {
+            builder = builder.query(&[("_idGameRow", game_row)]);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn latest_all(&self) {

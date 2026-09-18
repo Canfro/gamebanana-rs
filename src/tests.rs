@@ -12,8 +12,7 @@ use crate::{
 async fn advanced_search() {
     for section in Section::iter() {
         let api = GamebananaApi::new().unwrap();
-        let res = api
-            .search()
+        api.search()
             .advanced(
                 "the",
                 Some(1),
@@ -40,7 +39,7 @@ async fn advanced_search() {
 async fn modificators() {
     for section in Section::iter() {
         let api = GamebananaApi::new().unwrap();
-        let res = api.search().modificators(section).await.unwrap();
+        api.search().modificators(section).await.unwrap();
     }
 }
 
@@ -48,8 +47,7 @@ async fn modificators() {
 async fn suggestions() {
     for section in Section::iter() {
         let api = GamebananaApi::new().unwrap();
-        let res = api
-            .search()
+        api.search()
             .suggestions("the", section, None)
             .await
             .unwrap();
@@ -59,9 +57,14 @@ async fn suggestions() {
 #[tokio::test]
 async fn games_by_name() {
     let api = GamebananaApi::new().unwrap();
-    let res = api
-        .search()
+    api.search()
         .games_by_name("the", Some(1), Some(50))
         .await
         .unwrap();
+}
+
+#[tokio::test]
+async fn tags_by_text() {
+    let api = GamebananaApi::new().unwrap();
+    api.search().tags_by_text("the", None).await.unwrap();
 }
