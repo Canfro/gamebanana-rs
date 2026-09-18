@@ -5,7 +5,7 @@ use crate::{
     api::model::search::{
         advanced::{advanced_record::AdvancedRecord, field::Field, order::Order},
         game::Game,
-        latest_all::latest_sort::LatestSort,
+        latest::latest_sort::LatestSort,
         modificators::modificators_response::ModificatorsResponse,
         search_response::SearchResponse,
         section::Section,
@@ -165,8 +165,61 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn latest_game(&self) {
-        todo!()
+    pub async fn latest_game(
+        &self,
+        id: u64,
+        page: Option<u64>,
+        sort: Option<LatestSort>,
+        name: Option<&str>,
+        model_inclusions: Option<&[Section]>,
+        model_exclusions: Option<&[Section]>,
+        tag_inclusions: Option<&[String]>,
+        tag_exclusions: Option<&[String]>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self
+            .api
+            .base_url
+            .join(format!("Game/{}/Subfeed", id).as_str())?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(sort) = sort {
+            builder = builder.query(&[("_sSort", sort.as_str())]);
+        }
+        if let Some(name) = name {
+            builder = builder.query(&[("_sName", name)]);
+        }
+        if let Some(model_inclusions) = model_inclusions {
+            let model_inclusions = model_inclusions
+                .iter()
+                .map(|f| f.as_str())
+                .collect::<Vec<&str>>()
+                .join(",");
+
+            builder = builder.query(&[("_csvModelInclusions", model_inclusions)]);
+        }
+        if let Some(model_exclusions) = model_exclusions {
+            let model_exclusions = model_exclusions
+                .iter()
+                .map(|f| f.as_str())
+                .collect::<Vec<&str>>()
+                .join(",");
+
+            builder = builder.query(&[("_csvModelExclusions", model_exclusions)]);
+        }
+        if let Some(tag_inclusions) = tag_inclusions {
+            let tag_inclusions = tag_inclusions.join(",");
+            builder = builder.query(&[("_csvTagInclusions", tag_inclusions)]);
+        }
+        if let Some(tag_exclusions) = tag_exclusions {
+            let tag_exclusions = tag_exclusions.join(",");
+            builder = builder.query(&[("_csvTagExclusions", tag_exclusions)]);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn latest_section(&self) {

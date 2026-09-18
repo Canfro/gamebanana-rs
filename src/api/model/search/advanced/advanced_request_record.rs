@@ -17,7 +17,7 @@ pub struct AdvancedRequestRecord {
     pub tags: Vec<String>,
 
     #[serde(rename = "_aGame")]
-    pub game: Game,
+    pub game: Option<Game>,
 
     #[serde(rename = "_aRootCategory")]
     pub root_category: Category,

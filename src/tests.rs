@@ -4,7 +4,7 @@ use crate::{
     GamebananaApi,
     api::model::search::{
         advanced::{field::Field, order::Order},
-        latest_all::latest_sort::LatestSort,
+        latest::latest_sort::LatestSort,
         section::Section,
     },
 };
@@ -82,6 +82,27 @@ async fn latest_all() {
         let api = GamebananaApi::new().unwrap();
         api.search()
             .latest_all(Some(page), Some(50), Some(LatestSort::New), Some(false))
+            .await
+            .unwrap();
+    }
+}
+
+#[tokio::test]
+async fn latest_game() {
+    for page in 1..11 {
+        println!("Page: {}", page);
+        let api = GamebananaApi::new().unwrap();
+        api.search()
+            .latest_game(
+                8552,
+                Some(page),
+                Some(LatestSort::New),
+                None,
+                None,
+                None,
+                None,
+                None,
+            )
             .await
             .unwrap();
     }

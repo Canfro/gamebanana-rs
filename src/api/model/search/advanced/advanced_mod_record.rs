@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api::model::search::{
-    advanced::advanced_common_record::AdvancedCommonRecord, advanced::category::Category, game::Game,
+    advanced::advanced_common_record::AdvancedCommonRecord, advanced::category::Category,
+    game::Game,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -13,7 +14,7 @@ pub struct AdvancedModRecord {
     pub tags: Vec<String>,
 
     #[serde(rename = "_aGame")]
-    pub game: Game,
+    pub game: Option<Game>,
 
     #[serde(rename = "_aRootCategory")]
     pub root_category: Category,
