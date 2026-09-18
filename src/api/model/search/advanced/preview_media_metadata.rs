@@ -2,7 +2,9 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
-use crate::api::model::search::advanced::section_match_count::SectionMatchCount;
+use crate::api::model::search::advanced::{
+    section_match_count::SectionMatchCount, string_or_uint::StringOrUint,
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -43,7 +45,7 @@ pub enum PreviewMediaMetadata {
     },
     PreviewMediaJam {
         #[serde(rename = "_nBounty")]
-        bounty: u64,
+        bounty: StringOrUint,
 
         #[serde(rename = "_sSnippet")]
         snippet: String,
@@ -66,11 +68,11 @@ pub enum PreviewMediaMetadata {
         snippet: String,
 
         #[serde(rename = "_nPostCount")]
-        post_count: u64,
+        post_count: Option<u64>,
     },
     PreviewMediaRequest {
         #[serde(rename = "_nBounty")]
-        bounty: u64,
+        bounty: StringOrUint,
 
         #[serde(rename = "_sSnippet")]
         snippet: String,
@@ -91,6 +93,6 @@ pub enum PreviewMediaMetadata {
         snippet: String,
 
         #[serde(rename = "_nPostCount")]
-        post_count: u64,
+        post_count: Option<u64>,
     },
 }

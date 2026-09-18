@@ -5,6 +5,7 @@ use crate::{
     api::model::search::{
         advanced::{advanced_record::AdvancedRecord, field::Field, order::Order},
         game::Game,
+        latest_all::latest_sort::LatestSort,
         modificators::modificators_response::ModificatorsResponse,
         search_response::SearchResponse,
         section::Section,
@@ -137,8 +138,31 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn latest_all(&self) {
-        todo!()
+    pub async fn latest_all(
+        &self,
+        page: Option<u64>,
+        per_page: Option<u64>,
+        sort: Option<LatestSort>,
+        filter_by_subscribed_games: Option<bool>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self.api.base_url.join("Util/Homepage/Submissions")?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+        if let Some(sort) = sort {
+            builder = builder.query(&[("_sSort", sort.as_str())]);
+        }
+        if let Some(filter_by_subscribed_games) = filter_by_subscribed_games {
+            builder = builder.query(&[("_bFilterBySubscribedGames", filter_by_subscribed_games)]);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn latest_game(&self) {

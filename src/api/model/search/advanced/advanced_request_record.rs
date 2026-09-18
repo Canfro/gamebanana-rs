@@ -1,7 +1,11 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api::model::search::{
-    advanced::advanced_common_record::AdvancedCommonRecord, advanced::category::Category, game::Game,
+    advanced::{
+        advanced_common_record::AdvancedCommonRecord, category::Category,
+        string_or_uint::StringOrUint,
+    },
+    game::Game,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -31,7 +35,7 @@ pub struct AdvancedRequestRecord {
     pub additional_rewards: Option<Vec<String>>,
 
     #[serde(rename = "_nBounty")]
-    pub bounty: u64,
+    pub bounty: StringOrUint,
 
     #[serde(rename = "_tsLastBoostDate")]
     pub last_boost_date: i64,
@@ -43,5 +47,5 @@ pub struct AdvancedRequestRecord {
     pub post_count: Option<u64>,
 
     #[serde(rename = "_nViewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }

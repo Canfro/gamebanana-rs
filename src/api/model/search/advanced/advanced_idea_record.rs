@@ -29,11 +29,11 @@ pub struct AdvancedIdeaRecord {
     pub is_obsolete: bool,
 
     #[serde(rename = "_nPostCount")]
-    pub post_count: u64,
+    pub post_count: Option<u64>,
 
     #[serde(rename = "_bWasFeatured")]
     pub was_featured: bool,
 
     #[serde(rename = "_nViewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }

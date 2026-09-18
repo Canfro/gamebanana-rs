@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 use crate::api::model::search::{
-    advanced::advanced_common_record::AdvancedCommonRecord, advanced::category::Category, game::Game,
+    advanced::advanced_common_record::AdvancedCommonRecord, advanced::category::Category,
+    game::Game,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -37,5 +38,5 @@ pub struct AdvancedToolRecord {
     pub was_featured: bool,
 
     #[serde(rename = "_nViewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }

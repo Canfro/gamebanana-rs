@@ -12,5 +12,5 @@ pub struct Studio {
     pub profile_url: String,
 
     #[serde(rename = "_sFlagUrl")]
-    pub flag_url: String,
+    pub flag_url: Option<String>,
 }

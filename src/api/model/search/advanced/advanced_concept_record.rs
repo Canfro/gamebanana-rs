@@ -23,5 +23,5 @@ pub struct AdvancedConceptRecord {
     pub post_count: Option<u64>,
 
     #[serde(rename = "_nViewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }

@@ -34,5 +34,5 @@ pub struct AdvancedScriptRecord {
     pub was_featured: bool,
 
     #[serde(rename = "_nViewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }

@@ -34,5 +34,5 @@ pub struct AdvancedProjectRecord {
     pub wip_count: u64,
 
     #[serde(rename = "_nViewCount")]
-    pub view_count: u64,
+    pub view_count: Option<u64>,
 }

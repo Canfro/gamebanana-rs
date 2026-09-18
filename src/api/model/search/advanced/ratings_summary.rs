@@ -2,7 +2,9 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
-use crate::api::model::search::advanced::rating_breakdown::RatingBreakdown;
+use crate::api::model::search::advanced::{
+    object_or_empty::ObjectOrEmpty, rating_breakdown::RatingBreakdown,
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RatingsSummary {
@@ -19,5 +21,5 @@ pub struct RatingsSummary {
     pub cumulative_negativity: i64,
 
     #[serde(rename = "_aRatingsBreakdown")]
-    pub ratings_breakdown: HashMap<String, RatingBreakdown>,
+    pub ratings_breakdown: ObjectOrEmpty<HashMap<String, RatingBreakdown>>,
 }
