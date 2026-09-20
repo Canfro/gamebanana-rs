@@ -10,8 +10,8 @@ pub mod tests;
 
 #[derive(Debug, Clone)]
 pub struct GamebananaApi {
-    base_url: Url,
-    client: Client,
+    pub base_url: Url,
+    pub client: Client,
 }
 
 impl GamebananaApi {
@@ -25,9 +25,14 @@ impl GamebananaApi {
     async fn execute<T: DeserializeOwned>(&self, builder: RequestBuilder) -> Result<T, Error> {
         let request = builder.build()?;
         let response = self.client.execute(request).await?;
-        let body = response.text().await?;
 
-        let mut deserializer = serde_json::Deserializer::from_str(body.as_str());
+        let body = response.text().await?;
+        let body = match body.find(['{', '[']) {
+            Some(start) => &body[start..],
+            None => &body,
+        };
+
+        let mut deserializer = serde_json::Deserializer::from_str(body);
         let result = serde_path_to_error::deserialize::<_, T>(&mut deserializer);
 
         match result {

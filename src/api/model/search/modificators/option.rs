@@ -3,8 +3,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Option {
     #[serde(rename = "_sAlias")]
-    alias: String,
+    pub alias: String,
 
     #[serde(rename = "_sTitle")]
-    title: String,
+    pub title: String,
 }

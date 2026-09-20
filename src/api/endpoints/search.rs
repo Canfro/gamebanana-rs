@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use anyhow::Error;
 
 use crate::{
@@ -5,7 +7,7 @@ use crate::{
     api::model::search::{
         advanced::{advanced_record::AdvancedRecord, field::Field, order::Order},
         game::Game,
-        latest::latest_sort::LatestSort,
+        latest::generic_latest_sort::GenericLatestSort,
         modificators::modificators_response::ModificatorsResponse,
         search_response::SearchResponse,
         section::Section,
@@ -15,7 +17,7 @@ use crate::{
 
 #[derive(Debug, Clone, Copy)]
 pub struct Search<'a> {
-    api: &'a GamebananaApi,
+    pub api: &'a GamebananaApi,
 }
 
 impl<'a> GamebananaApi {
@@ -142,7 +144,7 @@ impl<'a> Search<'a> {
         &self,
         page: Option<u64>,
         per_page: Option<u64>,
-        sort: Option<LatestSort>,
+        sort: Option<GenericLatestSort>,
         filter_by_subscribed_games: Option<bool>,
     ) -> Result<SearchResponse<AdvancedRecord>, Error> {
         let url = self.api.base_url.join("Util/Homepage/Submissions")?;
@@ -169,12 +171,12 @@ impl<'a> Search<'a> {
         &self,
         id: u64,
         page: Option<u64>,
-        sort: Option<LatestSort>,
+        sort: Option<GenericLatestSort>,
         name: Option<&str>,
         model_inclusions: Option<&[Section]>,
         model_exclusions: Option<&[Section]>,
-        tag_inclusions: Option<&[String]>,
-        tag_exclusions: Option<&[String]>,
+        tag_inclusions: Option<&[&str]>,
+        tag_exclusions: Option<&[&str]>,
     ) -> Result<SearchResponse<AdvancedRecord>, Error> {
         let url = self
             .api
@@ -222,8 +224,40 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn latest_section(&self) {
-        todo!()
+    pub async fn latest_section(
+        &self,
+        model_name: Section,
+        page: Option<u64>,
+        per_page: Option<u64>,
+        sort: Option<&str>,
+        filters: Option<&[(&str, &str)]>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self
+            .api
+            .base_url
+            .join(format!("{}/Index", model_name.as_str()).as_str())?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+        if let Some(sort) = sort {
+            builder = builder.query(&[("_sSort", sort)]);
+        }
+        if let Some(filters) = filters {
+            let filters = filters
+                .iter()
+                .map(|(k, v)| (format!("_aFilters[{}]", k), *v))
+                .collect::<HashMap<String, &str>>();
+
+            builder = builder.query(&filters);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn latest_member(&self) {

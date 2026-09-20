@@ -4,18 +4,19 @@ use crate::{
     GamebananaApi,
     api::model::search::{
         advanced::{field::Field, order::Order},
-        latest::latest_sort::LatestSort,
+        latest::generic_latest_sort::GenericLatestSort,
         section::Section,
     },
 };
 
 #[tokio::test]
 async fn advanced_search() {
+    let api = GamebananaApi::new().unwrap();
+
     for section in Section::iter() {
         for page in 1..6 {
             println!("Page: {}", page);
             println!("Section: {}", section.as_str());
-            let api = GamebananaApi::new().unwrap();
             api.search()
                 .advanced(
                     "the",
@@ -42,16 +43,18 @@ async fn advanced_search() {
 
 #[tokio::test]
 async fn modificators() {
+    let api = GamebananaApi::new().unwrap();
+
     for section in Section::iter() {
-        let api = GamebananaApi::new().unwrap();
         api.search().modificators(section).await.unwrap();
     }
 }
 
 #[tokio::test]
 async fn suggestions() {
+    let api = GamebananaApi::new().unwrap();
+
     for section in Section::iter() {
-        let api = GamebananaApi::new().unwrap();
         api.search()
             .suggestions("the", section, None)
             .await
@@ -61,8 +64,9 @@ async fn suggestions() {
 
 #[tokio::test]
 async fn games_by_name() {
+    let api = GamebananaApi::new().unwrap();
+
     for page in 1..6 {
-        let api = GamebananaApi::new().unwrap();
         api.search()
             .games_by_name("the", Some(page), Some(50))
             .await
@@ -78,10 +82,16 @@ async fn tags_by_text() {
 
 #[tokio::test]
 async fn latest_all() {
+    let api = GamebananaApi::new().unwrap();
+
     for page in 1..6 {
-        let api = GamebananaApi::new().unwrap();
         api.search()
-            .latest_all(Some(page), Some(50), Some(LatestSort::New), Some(false))
+            .latest_all(
+                Some(page),
+                Some(50),
+                Some(GenericLatestSort::New),
+                Some(false),
+            )
             .await
             .unwrap();
     }
@@ -89,14 +99,15 @@ async fn latest_all() {
 
 #[tokio::test]
 async fn latest_game() {
+    let api = GamebananaApi::new().unwrap();
+
     for page in 1..11 {
         println!("Page: {}", page);
-        let api = GamebananaApi::new().unwrap();
         api.search()
             .latest_game(
                 8552,
                 Some(page),
-                Some(LatestSort::New),
+                Some(GenericLatestSort::New),
                 None,
                 None,
                 None,
@@ -105,5 +116,23 @@ async fn latest_game() {
             )
             .await
             .unwrap();
+    }
+}
+
+#[tokio::test]
+async fn latest_section() {
+    let api = GamebananaApi::new().unwrap();
+
+    for section in Section::iter() {
+        println!("{}", section.as_str());
+        let sorts = api.search().modificators(section).await.unwrap().sorts;
+
+        for sort in sorts {
+            println!("{}", sort.alias);
+            api.search()
+                .latest_section(section, Some(1), Some(50), Some(sort.alias.as_str()), None)
+                .await
+                .unwrap();
+        }
     }
 }

@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 use crate::api::model::search::advanced::{
-    section_match_count::SectionMatchCount, string_or_uint::StringOrUint,
+    object_or_empty::ObjectOrEmpty, string_or_uint::StringOrUint,
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -55,7 +55,7 @@ pub enum PreviewMediaMetadata {
     },
     PreviewMediaPoll {
         #[serde(rename = "_aResults")]
-        results: HashMap<String, u64>,
+        results: ObjectOrEmpty<HashMap<String, u64>>,
 
         #[serde(rename = "_nTotalVotes")]
         total_votes: u64,

@@ -1,1 +1,1 @@
-pub mod latest_sort;
+pub mod generic_latest_sort;

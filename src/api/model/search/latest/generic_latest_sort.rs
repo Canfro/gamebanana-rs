@@ -2,18 +2,18 @@ use serde::{Deserialize, Serialize};
 use strum::EnumIter;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, EnumIter)]
-pub enum LatestSort {
+pub enum GenericLatestSort {
     Default,
     New,
     Updated,
 }
 
-impl LatestSort {
+impl GenericLatestSort {
     pub fn as_str(&self) -> &str {
         match self {
-            LatestSort::Default => "default",
-            LatestSort::New => "new",
-            LatestSort::Updated => "updated",
+            GenericLatestSort::Default => "default",
+            GenericLatestSort::New => "new",
+            GenericLatestSort::Updated => "updated",
         }
     }
 }

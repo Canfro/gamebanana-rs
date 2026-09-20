@@ -23,7 +23,7 @@ pub struct AdvancedWipRecord {
     pub ak_development_state: String,
 
     #[serde(rename = "_sDevelopmentState")]
-    pub development_state: String,
+    pub development_state: Option<String>,
 
     #[serde(rename = "_iCompletionPercentage")]
     pub completion_percentage: i64,

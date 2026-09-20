@@ -21,7 +21,7 @@ pub enum Image {
         caption: Option<String>,
 
         #[serde(rename = "_sFile")]
-        file: String,
+        file: Option<String>,
 
         #[serde(rename = "_sFile100")]
         file100: Option<String>,

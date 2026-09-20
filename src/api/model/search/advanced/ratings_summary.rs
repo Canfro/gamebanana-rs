@@ -9,16 +9,16 @@ use crate::api::model::search::advanced::{
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RatingsSummary {
     #[serde(rename = "_nRatingsCount")]
-    pub ratings_count: u64,
+    pub ratings_count: Option<u64>,
 
     #[serde(rename = "_iCumulativeRating")]
     pub cumulative_rating: i64,
 
     #[serde(rename = "_iCumulativePositivity")]
-    pub cumulative_positivity: i64,
+    pub cumulative_positivity: Option<i64>,
 
     #[serde(rename = "_iCumulativeNegativity")]
-    pub cumulative_negativity: i64,
+    pub cumulative_negativity: Option<i64>,
 
     #[serde(rename = "_aRatingsBreakdown")]
     pub ratings_breakdown: ObjectOrEmpty<HashMap<String, RatingBreakdown>>,

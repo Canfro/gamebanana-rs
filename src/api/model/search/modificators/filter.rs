@@ -5,14 +5,14 @@ use crate::api::model::search::modificators::option;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Filter {
     #[serde(rename = "_sType")]
-    ty: String,
+    pub ty: String,
 
     #[serde(rename = "_sTitle")]
-    title: Option<String>,
+    pub title: Option<String>,
 
     #[serde(rename = "_aOptions")]
-    options: Option<Vec<option::Option>>,
+    pub options: Option<Vec<option::Option>>,
 
     #[serde(rename = "_sAlias")]
-    alias: String,
+    pub alias: String,
 }
