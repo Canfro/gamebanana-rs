@@ -1,17 +1,19 @@
 use std::collections::HashMap;
 
 use anyhow::Error;
+use reqwest::retry::Builder;
 
 use crate::{
     GamebananaApi,
     api::model::search::{
         advanced::{advanced_record::AdvancedRecord, field::Field, order::Order},
-        game::Game,
+        game::{self, Game},
         latest::generic_latest_sort::GenericLatestSort,
         modificators::modificators_response::ModificatorsResponse,
         search_response::SearchResponse,
         section::Section,
         tags_by_text::tag::Tag,
+        top::top_record::TopRecord,
     },
 };
 
@@ -35,7 +37,7 @@ impl<'a> Search<'a> {
         model_name: Option<Section>,
         order: Option<Order>,
         fields: Option<&[Field]>,
-        game_row: Option<i64>,
+        game_row: Option<u64>,
     ) -> Result<SearchResponse<AdvancedRecord>, Error> {
         let url = self.api.base_url.join("Util/Search/Results")?;
 
@@ -88,7 +90,7 @@ impl<'a> Search<'a> {
         &self,
         search_string: &str,
         model_name: Section,
-        game_row: Option<i64>,
+        game_row: Option<u64>,
     ) -> Result<Vec<String>, Error> {
         let url = self.api.base_url.join("Util/Search/Suggestions")?;
 
@@ -127,7 +129,7 @@ impl<'a> Search<'a> {
     pub async fn tags_by_text(
         &self,
         tag: &str,
-        game_row: Option<i64>,
+        game_row: Option<u64>,
     ) -> Result<SearchResponse<Tag>, Error> {
         let url = self.api.base_url.join("Util/Generic/Tags")?;
 
@@ -283,11 +285,41 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn featured(&self) {
-        todo!()
+    pub async fn featured(
+        &self,
+        page: Option<u64>,
+        per_page: Option<u64>,
+        model_name: Option<Section>,
+        game_row: Option<u64>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self.api.base_url.join("Util/List/Featured")?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+        if let Some(model_name) = model_name {
+            builder = builder.query(&[("_sModelName", model_name.as_str())]);
+        }
+        if let Some(game_row) = game_row {
+            builder = builder.query(&[("_idGameRow", game_row)]);
+        }
+
+        self.api.execute(builder).await
     }
 
-    pub async fn top(&self) {
-        todo!()
+    pub async fn top(&self, id: u64) -> Result<Vec<TopRecord>, Error> {
+        let url = self
+            .api
+            .base_url
+            .join(format!("Game/{}/TopSubs", id).as_str())?;
+
+        let builder = self.api.client.get(url);
+
+        self.api.execute(builder).await
     }
 }

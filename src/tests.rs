@@ -150,3 +150,27 @@ async fn latest_member() {
             .unwrap();
     }
 }
+
+#[tokio::test]
+async fn featured() {
+    let api = GamebananaApi::new().unwrap();
+
+    for page in 1..11 {
+        println!("{}", page);
+
+        api.search()
+            .featured(Some(page), Some(50), None, None)
+            .await
+            .unwrap();
+    }
+}
+
+#[tokio::test]
+async fn top() {
+    let api = GamebananaApi::new().unwrap();
+
+    for id in 8770..10000 {
+        println!("ID: {}", id);
+        api.search().top(id).await.unwrap();
+    }
+}
