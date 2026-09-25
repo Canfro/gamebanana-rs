@@ -260,8 +260,27 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn latest_member(&self) {
-        todo!()
+    pub async fn latest_member(
+        &self,
+        id: u64,
+        page: Option<u64>,
+        per_page: Option<u64>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self
+            .api
+            .base_url
+            .join(format!("Member/{}/SubFeed", id).as_str())?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn featured(&self) {

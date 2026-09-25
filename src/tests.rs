@@ -136,3 +136,17 @@ async fn latest_section() {
         }
     }
 }
+
+#[tokio::test]
+async fn latest_member() {
+    let api = GamebananaApi::new().unwrap();
+
+    for page in 1..11 {
+        println!("{}", page);
+
+        api.search()
+            .latest_member(4829083, Some(page), Some(50))
+            .await
+            .unwrap();
+    }
+}
