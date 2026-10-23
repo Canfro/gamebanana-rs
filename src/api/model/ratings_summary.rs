@@ -1,0 +1,23 @@
+use std::collections::HashMap;
+
+use serde::{Deserialize, Serialize};
+
+use crate::api::model::{object_or_empty::ObjectOrEmpty, rating_breakdown::RatingBreakdown};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RatingsSummary {
+    #[serde(rename = "_nRatingsCount")]
+    pub ratings_count: Option<u64>,
+
+    #[serde(rename = "_iCumulativeRating")]
+    pub cumulative_rating: i64,
+
+    #[serde(rename = "_iCumulativePositivity")]
+    pub cumulative_positivity: Option<i64>,
+
+    #[serde(rename = "_iCumulativeNegativity")]
+    pub cumulative_negativity: Option<i64>,
+
+    #[serde(rename = "_aRatingsBreakdown")]
+    pub ratings_breakdown: ObjectOrEmpty<HashMap<String, RatingBreakdown>>,
+}

@@ -1,2 +1,13 @@
-pub mod endpoints;
+pub mod auth;
+pub mod collection;
+pub mod file;
+pub mod issue;
+pub mod mod_category;
 pub mod model;
+pub mod post;
+pub mod ripe;
+pub mod search;
+pub mod submissions;
+pub mod subscription;
+pub mod todo;
+pub mod update;
