@@ -1,0 +1,201 @@
+{
+    "Util": {
+        "Search": [
+            "Results", // GET; search.results
+            "Suggestions" // GET; search.suggestions
+        ],
+        "Game": [
+            "NameMatch" // GET; search.game_name_match
+        ],
+        "Generic": [
+            "Tags", // GET; search.tags
+            "Discussions" // GET; search.discussions
+        ],
+        "Homepage": [
+            "Submissions", // GET; search.latest_submissions
+            "TopGames", // GET; search.top_games
+            "Features", // GET
+            "CommunitySpotlight" // GET; search.community_spotlight
+        ],
+        "List": [
+            "Featured" // GET; search.featured
+        ],
+        "Config": [
+            "TrashReasons" // GET
+        ]
+    },
+    ":model_name": [
+        "ListFilterConfig", // GET; section(T).list_filter_config
+        "Index", // GET; section(T).index
+        "Categories", // GET; section(T).categories
+        {
+            ":submission_id": [ // GET; section(T).get_submission
+                "ProfilePage", // GET; section(T).get_submission.profile_page
+                "DownloadPage", // GET; section(T).get_submission.download_page
+                "Collections", // GET; section(T).get_submission.collections
+                "AccessorCollections", // GET; section(T).get_submission.accessor_collections
+                "AddToCollection", // POST; section(T).get_submission.add_to_collection
+                "RemoveFromCollection", // DELETE; section(T).get_submission.remove_from_collection
+                "EmbeddablesPage", // GET; section(T).get_submission.embeddables_page
+                "Issues", // GET; section(T).get_submission.issues
+                {
+                    "Issue": [
+                        "Add" // POST; section(T).get_submission.add_issue
+                    ]
+                },
+                "Likes", // GET; section(T).get_submission.likes
+                "Like", // POST, DELETE; section(T).get_submission.like
+                "Posts", // GET; section(T).get_submission.posts
+                {
+                    "Post": [
+                        "Add" // POST; section(T).get_submission.add_post
+                    ]
+                },
+                "Subscribers", // GET; section(T).get_submission.subscribers
+                {
+                    "Subscription": [
+                        "Add" // POST; section(T).get_submission.add_subscription
+                    ]
+                },
+                "Thanks", // GET; section(T).get_submission.thanks
+                {
+                    "Thank": [
+                        "Add" // POST; section(T).get_submission.add_thanks
+                    ]
+                },
+                "Todos", // GET; section(T).get_submission.todos
+                {
+                    "Todo": [
+                        "Add" // POST; section(T).get_submission.add_todo
+                    ]
+                },
+                "Updates", // GET; section(T).get_submission.updates
+                "Files", // GET; section(T).get_submission.files
+                "Update" // POST; section(T).get_submission.update
+            ]
+        }
+    ],
+    ":model_name/Game": {
+        ":id": [
+            "Subfeed", // GET; section(Game).get_submission.subfeed
+            "TopSubs", // GET; section(Game).get_submission.top_subs
+            "CommunitySpotlight", // GET; section(Game).get_submission.community_spotlight
+            "GetStartedPage", // GET; section(Game).get_submission.get_started_page
+            "Rules" // GET; section(Game).get_submission.rules
+        ]
+    },
+    ":model_name/Member": [
+        {
+            ":id": [
+                "Subfeed", // GET; section(Member).get_submission.subfeed
+                "AwardedBounties", // GET; section(Member).get_submission.awarded_bounties
+                "ContributedBounties", // GET; section(Member).get_submission.contributed_bounties
+                "LikedSubmissions", // GET; section(Member).get_submission.liked_submissions
+                "Medals", // GET; section(Member).get_submission.medals
+                "ParticipatedContests", // GET; section(Member).get_submission.participated_contests
+                "RatedIdeas", // GET; section(Member).get_submission.rated_ideas
+                "SolvedQuestions", // GET; section(Member).get_submission.solved_questions
+                "ThankedSubmissions", // GET; section(Member).get_submission.thanked_submissions
+                "VotedPolls", // GET; section(Member).get_submission.voted_polls
+                {
+                    "Submissions": [
+                        "Contributions", // GET; section(Member).get_submission.contributions
+                        "Posts" // GET; section(Member).get_submission.posts
+                    ]
+                }
+            ]
+        },
+        "Authenticate", // POST; auth.authenticate
+        "EmailAuthenticate" // POST; auth.email_auntheticate
+    ],
+    ":model_name/App": {
+        ":submission_id": [
+            "Users", // GET; section(App).get_submission.users
+            {
+                "CustomConfig": [
+                    ":app_config_id" // GET; section(App).get_submission.get_custom_config
+                ]
+            }
+        ]
+    },
+    ":model_name/Contest": {
+        ":submission_id": [
+            "Winners" // GET; section(Contest).get_submission.winners
+        ]
+    },
+    ":model_name/Idea": {
+        ":submission_id": [
+            "Ratings" // GET; section(Idea).get_submission.ratings
+        ]
+    },
+    ":model_name/Jam": {
+        ":submission_id": [
+            {
+                "Bounty": [
+                    "Contributors", // GET; section(Jam).get_submission.bounty_contributors
+                    "Recipients" // GET; section(Jam).get_submission.bounty_recipients
+                ]
+            },
+            "Entries" // GET; section(Jam).get_submission.entries
+        ]
+    },
+    ":model_name/Poll": {
+        ":submission_id": [
+            "Votes" // GET; section(Poll).get_submission.votes
+        ]
+    },
+    ":model_name/Project": {
+        ":submission_id": [
+            "FinishedWorks", // GET; section(Project).get_submission.finished_works
+            "Wips" // GET; section(Project).get_submission.wips
+        ]
+    },
+    ":model_name/Request": {
+        ":submission_id": [
+            "BountyRecipients", // GET; section(Request).get_submission.bounty_recipients
+            "BountyContributors" // GET; section(Request).get_submission.bounty_contributors
+        ]
+    },
+    "ModCategory": {
+        ":rootCategoryId": [
+            "SubCategories" // GET; categories.sub_categories
+        ]
+    },
+    "File": [
+        ":file_id" // GET; files.get_file
+    ],
+    "Collection": [
+        "Add", // POST; collections.add_collection
+        {
+            ":submission_id": [
+                "Items" // GET; collections.items
+            ]
+        }
+    ],
+    "Issue": [
+        ":issue_id" // PATCH, DELETE; issues.edit_issue, issues.delete_issue
+    ],
+    "Post": {
+        ":post_id": [ // POST, DELETE; posts.reply, posts.delete_post
+            "ProfilePage", // GET; posts.profile_page
+            "Untrash" // PATCH; posts.untrash_post
+        ]
+    },
+    "Subscription": [
+        ":subscription_id" // DELETE; subscriptions.delete_subscription
+    ],
+    "Todo": {
+        ":todo_id": [ // PATCH, DELETE; todos.edit_todo, todos.delete_todo
+            "Toggle" // PATCH; todos.toggle_state
+        ]
+    },
+    "Update": {
+        ":update_id": [ // PATCH, DELETE; updates.edit_update, updates.delete_update
+            "Untrash" // PATCH; updates.untrash_update
+        ]
+    },
+    "Ripe": [
+        "Info", // GET; ripe.info
+        "Purchasers" // GET; ripe.purchasers
+    ]
+}

@@ -1,7 +1,12 @@
 pub mod auth;
-pub mod dict;
-pub mod games;
+pub mod collection;
+pub mod file;
+pub mod issue;
+pub mod mod_category;
+pub mod post;
 pub mod ripe;
 pub mod search;
-pub mod submission;
-pub mod wip;
+pub mod section;
+pub mod subscription;
+pub mod todo;
+pub mod update;

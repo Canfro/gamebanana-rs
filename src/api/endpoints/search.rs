@@ -1,13 +1,12 @@
 use std::collections::HashMap;
 
 use anyhow::Error;
-use reqwest::retry::Builder;
 
 use crate::{
     GamebananaApi,
     api::model::search::{
         advanced::{advanced_record::AdvancedRecord, field::Field, order::Order},
-        game::{self, Game},
+        game::Game,
         latest::generic_latest_sort::GenericLatestSort,
         modificators::modificators_response::ModificatorsResponse,
         search_response::SearchResponse,
@@ -29,7 +28,7 @@ impl<'a> GamebananaApi {
 }
 
 impl<'a> Search<'a> {
-    pub async fn advanced(
+    pub async fn results(
         &self,
         search_string: &str,
         page: Option<u64>,
@@ -106,7 +105,7 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn games_by_name(
+    pub async fn game_name_match(
         &self,
         name: &str,
         page: Option<u64>,
@@ -126,7 +125,7 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn tags_by_text(
+    pub async fn tags(
         &self,
         tag: &str,
         game_row: Option<u64>,
@@ -142,7 +141,7 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn latest_all(
+    pub async fn latest_submissions(
         &self,
         page: Option<u64>,
         per_page: Option<u64>,
@@ -169,6 +168,95 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
+    pub async fn featured(
+        &self,
+        page: Option<u64>,
+        per_page: Option<u64>,
+        model_name: Option<Section>,
+        game_row: Option<u64>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self.api.base_url.join("Util/List/Featured")?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+        if let Some(model_name) = model_name {
+            builder = builder.query(&[("_sModelName", model_name.as_str())]);
+        }
+        if let Some(game_row) = game_row {
+            builder = builder.query(&[("_idGameRow", game_row)]);
+        }
+
+        self.api.execute(builder).await
+    }
+
+    // TODO: Move to ./section/common.rs
+    pub async fn latest_section(
+        &self,
+        model_name: Section,
+        page: Option<u64>,
+        per_page: Option<u64>,
+        sort: Option<&str>,
+        filters: Option<&[(&str, &str)]>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self
+            .api
+            .base_url
+            .join(format!("{}/Index", model_name.as_str()).as_str())?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+        if let Some(sort) = sort {
+            builder = builder.query(&[("_sSort", sort)]);
+        }
+        if let Some(filters) = filters {
+            let filters = filters
+                .iter()
+                .map(|(k, v)| (format!("_aFilters[{}]", k), *v))
+                .collect::<HashMap<String, &str>>();
+
+            builder = builder.query(&filters);
+        }
+
+        self.api.execute(builder).await
+    }
+
+    // TODO: Move to ./section/member.rs
+    pub async fn latest_member(
+        &self,
+        id: u64,
+        page: Option<u64>,
+        per_page: Option<u64>,
+    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+        let url = self
+            .api
+            .base_url
+            .join(format!("Member/{}/SubFeed", id).as_str())?;
+
+        let mut builder = self.api.client.get(url);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+        if let Some(per_page) = per_page {
+            builder = builder.query(&[("_nPerpage", per_page)]);
+        }
+
+        self.api.execute(builder).await
+    }
+
+    // TODO: Move to ./section/game.rs
     pub async fn latest_game(
         &self,
         id: u64,
@@ -226,92 +314,7 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn latest_section(
-        &self,
-        model_name: Section,
-        page: Option<u64>,
-        per_page: Option<u64>,
-        sort: Option<&str>,
-        filters: Option<&[(&str, &str)]>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
-        let url = self
-            .api
-            .base_url
-            .join(format!("{}/Index", model_name.as_str()).as_str())?;
-
-        let mut builder = self.api.client.get(url);
-
-        if let Some(page) = page {
-            builder = builder.query(&[("_nPage", page)]);
-        }
-        if let Some(per_page) = per_page {
-            builder = builder.query(&[("_nPerpage", per_page)]);
-        }
-        if let Some(sort) = sort {
-            builder = builder.query(&[("_sSort", sort)]);
-        }
-        if let Some(filters) = filters {
-            let filters = filters
-                .iter()
-                .map(|(k, v)| (format!("_aFilters[{}]", k), *v))
-                .collect::<HashMap<String, &str>>();
-
-            builder = builder.query(&filters);
-        }
-
-        self.api.execute(builder).await
-    }
-
-    pub async fn latest_member(
-        &self,
-        id: u64,
-        page: Option<u64>,
-        per_page: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
-        let url = self
-            .api
-            .base_url
-            .join(format!("Member/{}/SubFeed", id).as_str())?;
-
-        let mut builder = self.api.client.get(url);
-
-        if let Some(page) = page {
-            builder = builder.query(&[("_nPage", page)]);
-        }
-        if let Some(per_page) = per_page {
-            builder = builder.query(&[("_nPerpage", per_page)]);
-        }
-
-        self.api.execute(builder).await
-    }
-
-    pub async fn featured(
-        &self,
-        page: Option<u64>,
-        per_page: Option<u64>,
-        model_name: Option<Section>,
-        game_row: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
-        let url = self.api.base_url.join("Util/List/Featured")?;
-
-        let mut builder = self.api.client.get(url);
-
-        if let Some(page) = page {
-            builder = builder.query(&[("_nPage", page)]);
-        }
-        if let Some(per_page) = per_page {
-            builder = builder.query(&[("_nPerpage", per_page)]);
-        }
-        if let Some(model_name) = model_name {
-            builder = builder.query(&[("_sModelName", model_name.as_str())]);
-        }
-        if let Some(game_row) = game_row {
-            builder = builder.query(&[("_idGameRow", game_row)]);
-        }
-
-        self.api.execute(builder).await
-    }
-
+    // TODO: Move to ./section/game.rs
     pub async fn top(&self, id: u64) -> Result<Vec<TopRecord>, Error> {
         let url = self
             .api
