@@ -5,6 +5,9 @@ use std::str::FromStr;
 
 pub mod api;
 
+#[cfg(test)]
+mod tests;
+
 #[derive(Debug, Clone)]
 pub struct GamebananaApi {
     pub base_url: Url,

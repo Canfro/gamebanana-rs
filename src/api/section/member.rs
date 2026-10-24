@@ -2,10 +2,10 @@ use anyhow::Error;
 
 use crate::api::{
     model::{record::AdvancedRecord, search_response::SearchResponse},
-    submissions::{common::Submission, model::section::Member},
+    section::{common::Section, model::section::MemberSection},
 };
 
-impl<'a> Submission<'a, Member> {
+impl<'a> Section<'a, MemberSection> {
     pub async fn subfeed(
         &self,
         id: u64,

@@ -5,24 +5,24 @@ use crate::api::{
         generic_latest_sort::GenericLatestSort, record::AdvancedRecord,
         search_response::SearchResponse,
     },
-    submissions::{
-        common::Submission,
+    section::{
+        common::Section,
         model::{
-            section::{Game, Section},
+            section::{AnySection, GameSection},
             top_record::TopRecord,
         },
     },
 };
 
-impl<'a> Submission<'a, Game> {
-    pub async fn subfeed<I: Section, E: Section>(
+impl<'a> Section<'a, GameSection> {
+    pub async fn subfeed(
         &self,
         id: u64,
         page: Option<u64>,
         sort: Option<GenericLatestSort>,
         name: Option<&str>,
-        model_inclusions: Option<&[I]>,
-        model_exclusions: Option<&[E]>,
+        model_inclusions: Option<&[AnySection]>,
+        model_exclusions: Option<&[AnySection]>,
         tag_inclusions: Option<&[&str]>,
         tag_exclusions: Option<&[&str]>,
     ) -> Result<SearchResponse<AdvancedRecord>, Error> {
@@ -45,8 +45,8 @@ impl<'a> Submission<'a, Game> {
         if let Some(model_inclusions) = model_inclusions {
             let model_inclusions = model_inclusions
                 .iter()
-                .map(|_| I::as_str())
-                .collect::<Vec<&str>>()
+                .map(|s| format!("{:?}", s))
+                .collect::<Vec<_>>()
                 .join(",");
 
             builder = builder.query(&[("_csvModelInclusions", model_inclusions)]);
@@ -54,8 +54,8 @@ impl<'a> Submission<'a, Game> {
         if let Some(model_exclusions) = model_exclusions {
             let model_exclusions = model_exclusions
                 .iter()
-                .map(|_| E::as_str())
-                .collect::<Vec<&str>>()
+                .map(|s| format!("{:?}", s))
+                .collect::<Vec<_>>()
                 .join(",");
 
             builder = builder.query(&[("_csvModelExclusions", model_exclusions)]);

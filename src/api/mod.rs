@@ -7,7 +7,7 @@ pub mod model;
 pub mod post;
 pub mod ripe;
 pub mod search;
-pub mod submissions;
+pub mod section;
 pub mod subscription;
 pub mod todo;
 pub mod update;

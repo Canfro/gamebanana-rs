@@ -2,13 +2,9 @@ use anyhow::Error;
 
 use crate::{
     GamebananaApi,
-    api::{
-        model::{
-            field::Field, game::Game, generic_latest_sort::GenericLatestSort,
-            modificators_response::ModificatorsResponse, order::Order, record::AdvancedRecord,
-            search_response::SearchResponse, tag::Tag,
-        },
-        submissions::model::section::Section,
+    api::model::{
+        field::Field, game::Game, generic_latest_sort::GenericLatestSort, order::Order,
+        record::AdvancedRecord, search_response::SearchResponse, tag::Tag,
     },
 };
 
@@ -24,12 +20,11 @@ impl<'a> GamebananaApi {
 }
 
 impl<'a> Search<'a> {
-    pub async fn results<T: Section>(
+    pub async fn results(
         &self,
         search_string: &str,
         page: Option<u64>,
         per_page: Option<u64>,
-        model_name: Option<T>,
         order: Option<Order>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
@@ -48,9 +43,6 @@ impl<'a> Search<'a> {
         if let Some(per_page) = per_page {
             builder = builder.query(&[("_nPerpage", per_page)]);
         }
-        if model_name.is_some() {
-            builder = builder.query(&[("_sModelName", T::as_str())]);
-        }
         if let Some(order) = order {
             builder = builder.query(&[("_sOrder", order.as_str())]);
         }
@@ -63,36 +55,6 @@ impl<'a> Search<'a> {
 
             builder = builder.query(&[("_csvFields", fields)]);
         }
-        if let Some(game_row) = game_row {
-            builder = builder.query(&[("_idGameRow", game_row)]);
-        }
-
-        self.api.execute(builder).await
-    }
-
-    pub async fn list_filter_config<T: Section>(&self) -> Result<ModificatorsResponse, Error> {
-        let url = self
-            .api
-            .base_url
-            .join(format!("{}/ListFilterConfig", T::as_str()).as_str())?;
-
-        let builder = self.api.client.get(url);
-
-        self.api.execute(builder).await
-    }
-
-    pub async fn suggestions<T: Section>(
-        &self,
-        search_string: &str,
-        game_row: Option<u64>,
-    ) -> Result<Vec<String>, Error> {
-        let url = self.api.base_url.join("Util/Search/Suggestions")?;
-
-        let mut builder = self.api.client.get(url).query(&[
-            ("_sSearchString", search_string),
-            ("_sModelName", T::as_str()),
-        ]);
-
         if let Some(game_row) = game_row {
             builder = builder.query(&[("_idGameRow", game_row)]);
         }
@@ -136,6 +98,10 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
+    pub async fn discussions() {
+        todo!()
+    }
+
     pub async fn latest_submissions(
         &self,
         page: Option<u64>,
@@ -163,11 +129,18 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn featured<T: Section>(
+    pub async fn top_games() {
+        todo!()
+    }
+
+    pub async fn community_spotlight() {
+        todo!()
+    }
+
+    pub async fn featured(
         &self,
         page: Option<u64>,
         per_page: Option<u64>,
-        model_name: Option<T>,
         game_row: Option<u64>,
     ) -> Result<SearchResponse<AdvancedRecord>, Error> {
         let url = self.api.base_url.join("Util/List/Featured")?;
@@ -179,9 +152,6 @@ impl<'a> Search<'a> {
         }
         if let Some(per_page) = per_page {
             builder = builder.query(&[("_nPerpage", per_page)]);
-        }
-        if model_name.is_some() {
-            builder = builder.query(&[("_sModelName", T::as_str())]);
         }
         if let Some(game_row) = game_row {
             builder = builder.query(&[("_idGameRow", game_row)]);

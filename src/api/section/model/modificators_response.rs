@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api::model::{filter::Filter, preset::Preset, sort::Sort};
+use crate::api::section::model::{filter::Filter, preset::Preset, sort::Sort};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ModificatorsResponse {
