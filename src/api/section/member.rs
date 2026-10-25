@@ -1,7 +1,7 @@
 use anyhow::Error;
 
 use crate::api::{
-    model::{record::AdvancedRecord, search_response::SearchResponse},
+    model::{results_record::ResultsRecord, search_response::SearchResponse},
     section::{common::Section, model::section::MemberSection},
 };
 
@@ -11,7 +11,7 @@ impl<'a> Section<'a, MemberSection> {
         id: u64,
         page: Option<u64>,
         per_page: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self
             .api
             .base_url

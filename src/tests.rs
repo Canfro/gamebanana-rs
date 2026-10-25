@@ -1,6 +1,9 @@
 use crate::{
     GamebananaApi,
-    api::model::{field::Field, generic_latest_sort::GenericLatestSort, order::Order},
+    api::{
+        self,
+        model::{field::Field, generic_latest_sort::GenericLatestSort, order::Order},
+    },
 };
 
 #[tokio::test]
@@ -51,7 +54,11 @@ async fn tags() {
 
 #[tokio::test]
 async fn discussions() {
-    todo!()
+    let api = GamebananaApi::new().unwrap();
+
+    for page in 1..101 {
+        api.search().discussions(8552, Some(page)).await.unwrap();
+    }
 }
 
 #[tokio::test]

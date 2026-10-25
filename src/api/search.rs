@@ -3,8 +3,9 @@ use anyhow::Error;
 use crate::{
     GamebananaApi,
     api::model::{
-        field::Field, game::Game, generic_latest_sort::GenericLatestSort, order::Order,
-        record::AdvancedRecord, search_response::SearchResponse, tag::Tag,
+        discussions_record::DiscussionsRecord, field::Field, game::Game,
+        generic_latest_sort::GenericLatestSort, order::Order, results_record::ResultsRecord,
+        search_response::SearchResponse, tag::Tag,
     },
 };
 
@@ -28,7 +29,7 @@ impl<'a> Search<'a> {
         order: Option<Order>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self.api.base_url.join("Util/Search/Results")?;
 
         let mut builder = self
@@ -98,8 +99,20 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn discussions() {
-        todo!()
+    pub async fn discussions(
+        &self,
+        game_row: u64,
+        page: Option<u64>,
+    ) -> Result<SearchResponse<DiscussionsRecord>, Error> {
+        let url = self.api.base_url.join("Util/Generic/Discussion")?;
+
+        let mut builder = self.api.client.get(url).query(&[("_idGameRow", game_row)]);
+
+        if let Some(page) = page {
+            builder = builder.query(&[("_nPage", page)]);
+        }
+
+        self.api.execute(builder).await
     }
 
     pub async fn latest_submissions(
@@ -108,7 +121,7 @@ impl<'a> Search<'a> {
         per_page: Option<u64>,
         sort: Option<GenericLatestSort>,
         filter_by_subscribed_games: Option<bool>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self.api.base_url.join("Util/Homepage/Submissions")?;
 
         let mut builder = self.api.client.get(url);
@@ -142,7 +155,7 @@ impl<'a> Search<'a> {
         page: Option<u64>,
         per_page: Option<u64>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self.api.base_url.join("Util/List/Featured")?;
 
         let mut builder = self.api.client.get(url);

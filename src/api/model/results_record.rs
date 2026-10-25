@@ -8,102 +8,102 @@ use crate::api::model::{
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(tag = "_sModelName")]
-pub enum AdvancedRecord {
+pub enum ResultsRecord {
     #[serde(rename = "App")]
-    App(AdvancedAppRecord),
+    App(AppRecord),
 
     #[serde(rename = "Article")]
-    Article(AdvancedArticleRecord),
+    Article(ArticleRecord),
 
     #[serde(rename = "Bug")]
-    Bug(AdvancedBugRecord),
+    Bug(BugRecord),
 
     #[serde(rename = "Blog")]
-    Blog(AdvancedBlogRecord),
+    Blog(BlogRecord),
 
     #[serde(rename = "Club")]
-    Club(AdvancedClubRecord),
+    Club(ClubRecord),
 
     #[serde(rename = "Contest")]
-    Contest(AdvancedContestRecord),
+    Contest(ContestRecord),
 
     #[serde(rename = "Concept")]
-    Concept(AdvancedConceptRecord),
+    Concept(ConceptRecord),
 
     #[serde(rename = "Event")]
-    Event(AdvancedEventRecord),
+    Event(EventRecord),
 
     #[serde(rename = "Game")]
-    Game(AdvancedGameRecord),
+    Game(GameRecord),
 
     #[serde(rename = "Idea")]
-    Idea(AdvancedIdeaRecord),
+    Idea(IdeaRecord),
 
     #[serde(rename = "Initiative")]
-    Initiative(AdvancedInitiativeRecord),
+    Initiative(InitiativeRecord),
 
     #[serde(rename = "Jam")]
-    Jam(AdvancedJamRecord),
+    Jam(JamRecord),
 
     #[serde(rename = "Mod")]
-    Mod(AdvancedModRecord),
+    Mod(ModRecord),
 
     #[serde(rename = "Model")]
-    Model(AdvancedModelRecord),
+    Model(ModelRecord),
 
     #[serde(rename = "Member")]
-    Member(AdvancedMemberRecord),
+    Member(MemberRecord),
 
     #[serde(rename = "News")]
-    News(AdvancedNewsRecord),
+    News(NewsRecord),
 
     #[serde(rename = "Poll")]
-    Poll(AdvancedPollRecord),
+    Poll(PollRecord),
 
     #[serde(rename = "Project")]
-    Project(AdvancedProjectRecord),
+    Project(ProjectRecord),
 
     #[serde(rename = "Question")]
-    Question(AdvancedQuestionRecord),
+    Question(QuestionRecord),
 
     #[serde(rename = "Review")]
-    Review(AdvancedReviewRecord),
+    Review(ReviewRecord),
 
     #[serde(rename = "Request")]
-    Request(AdvancedRequestRecord),
+    Request(RequestRecord),
 
     #[serde(rename = "Script")]
-    Script(AdvancedScriptRecord),
+    Script(ScriptRecord),
 
     #[serde(rename = "Sound")]
-    Sound(AdvancedSoundRecord),
+    Sound(SoundRecord),
 
     #[serde(rename = "Spray")]
-    Spray(AdvancedSprayRecord),
+    Spray(SprayRecord),
 
     #[serde(rename = "Studio")]
-    Studio(AdvancedStudioRecord),
+    Studio(StudioRecord),
 
     #[serde(rename = "Thread")]
-    Thread(AdvancedThreadRecord),
+    Thread(ThreadRecord),
 
     #[serde(rename = "Tool")]
-    Tool(AdvancedToolRecord),
+    Tool(ToolRecord),
 
     #[serde(rename = "Tutorial")]
-    Tutorial(AdvancedTutorialRecord),
+    Tutorial(TutorialRecord),
 
     #[serde(rename = "Wiki")]
-    Wiki(AdvancedWikiRecord),
+    Wiki(WikiRecord),
 
     #[serde(rename = "Wip")]
-    Wip(AdvancedWipRecord),
+    Wip(WipRecord),
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedBugRecord {
+pub struct BugRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_akResolution")]
     pub ak_resolution: String,
@@ -125,9 +125,9 @@ pub struct AdvancedBugRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedAppRecord {
+pub struct AppRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -164,9 +164,9 @@ pub struct AdvancedAppRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedArticleRecord {
+pub struct ArticleRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -191,9 +191,9 @@ pub struct AdvancedArticleRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedBlogRecord {
+pub struct BlogRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -215,9 +215,9 @@ pub struct AdvancedBlogRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedClubRecord {
+pub struct ClubRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_iMemberCount")]
     pub i_member_count: u64,
@@ -233,7 +233,7 @@ pub struct AdvancedClubRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedCommonRecord {
+pub struct CommonRecord {
     #[serde(rename = "_idRow")]
     pub row: u64,
 
@@ -275,9 +275,9 @@ pub struct AdvancedCommonRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedConceptRecord {
+pub struct ConceptRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -296,33 +296,9 @@ pub struct AdvancedConceptRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedContestRecord {
+pub struct ContestRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
-
-    #[serde(rename = "_aTags")]
-    pub tags: Vec<String>,
-
-    #[serde(rename = "_aGame")]
-    pub game: Option<Game>,
-
-    #[serde(rename = "_aRootCategory")]
-    pub root_category: Category,
-
-    #[serde(rename = "_nPostCount")]
-    pub post_count: Option<u64>,
-
-    #[serde(rename = "_bWasFeatured")]
-    pub was_featured: bool,
-
-    #[serde(rename = "_nViewCount")]
-    pub view_count: Option<u64>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedEventRecord {
-    #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -344,9 +320,33 @@ pub struct AdvancedEventRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedGameRecord {
+pub struct EventRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
+
+    #[serde(rename = "_aTags")]
+    pub tags: Vec<String>,
+
+    #[serde(rename = "_aGame")]
+    pub game: Option<Game>,
+
+    #[serde(rename = "_aRootCategory")]
+    pub root_category: Category,
+
+    #[serde(rename = "_nPostCount")]
+    pub post_count: Option<u64>,
+
+    #[serde(rename = "_bWasFeatured")]
+    pub was_featured: bool,
+
+    #[serde(rename = "_nViewCount")]
+    pub view_count: Option<u64>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GameRecord {
+    #[serde(flatten)]
+    pub common: CommonRecord,
 
     #[serde(rename = "_sAbbreviation")]
     pub abbreviation: String,
@@ -359,9 +359,9 @@ pub struct AdvancedGameRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedIdeaRecord {
+pub struct IdeaRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -392,9 +392,9 @@ pub struct AdvancedIdeaRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedInitiativeRecord {
+pub struct InitiativeRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_sMissionStatement")]
     pub mission_statement: String,
@@ -407,9 +407,9 @@ pub struct AdvancedInitiativeRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedJamRecord {
+pub struct JamRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -449,18 +449,18 @@ pub struct AdvancedJamRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedMemberRecord {
+pub struct MemberRecord {
     #[serde(flatten)]
-    common: AdvancedCommonRecord,
+    common: CommonRecord,
 
     #[serde(rename = "_nPostCount")]
     post_count: Option<u64>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedModRecord {
+pub struct ModRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -494,9 +494,9 @@ pub struct AdvancedModRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedModelRecord {
+pub struct ModelRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -530,9 +530,9 @@ pub struct AdvancedModelRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedNewsRecord {
+pub struct NewsRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -554,9 +554,9 @@ pub struct AdvancedNewsRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedPollRecord {
+pub struct PollRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -590,9 +590,9 @@ pub struct AdvancedPollRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedProjectRecord {
+pub struct ProjectRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -623,9 +623,9 @@ pub struct AdvancedProjectRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedQuestionRecord {
+pub struct QuestionRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -656,9 +656,9 @@ pub struct AdvancedQuestionRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedRequestRecord {
+pub struct RequestRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -698,9 +698,9 @@ pub struct AdvancedRequestRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedReviewRecord {
+pub struct ReviewRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -713,9 +713,9 @@ pub struct AdvancedReviewRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedScriptRecord {
+pub struct ScriptRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -746,9 +746,9 @@ pub struct AdvancedScriptRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedSoundRecord {
+pub struct SoundRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -776,9 +776,9 @@ pub struct AdvancedSoundRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedSprayRecord {
+pub struct SprayRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -803,9 +803,9 @@ pub struct AdvancedSprayRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedStudioRecord {
+pub struct StudioRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_iMemberCount")]
     pub i_member_count: i64,
@@ -824,9 +824,9 @@ pub struct AdvancedStudioRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedThreadRecord {
+pub struct ThreadRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -854,9 +854,9 @@ pub struct AdvancedThreadRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedToolRecord {
+pub struct ToolRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -890,9 +890,9 @@ pub struct AdvancedToolRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedTutorialRecord {
+pub struct TutorialRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -923,9 +923,9 @@ pub struct AdvancedTutorialRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedWikiRecord {
+pub struct WikiRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,
@@ -947,9 +947,9 @@ pub struct AdvancedWikiRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AdvancedWipRecord {
+pub struct WipRecord {
     #[serde(flatten)]
-    pub common: AdvancedCommonRecord,
+    pub common: CommonRecord,
 
     #[serde(rename = "_aTags")]
     pub tags: Vec<String>,

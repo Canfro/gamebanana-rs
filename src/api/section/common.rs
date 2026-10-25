@@ -6,7 +6,8 @@ use crate::{
     GamebananaApi,
     api::{
         model::{
-            field::Field, order::Order, record::AdvancedRecord, search_response::SearchResponse,
+            field::Field, order::Order, results_record::ResultsRecord,
+            search_response::SearchResponse,
         },
         section::model::{modificators_response::ModificatorsResponse, section::SectionTrait},
     },
@@ -36,7 +37,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         order: Option<Order>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self.api.base_url.join("Util/Search/Results")?;
 
         let mut builder = self.api.client.get(url).query(&[
@@ -93,7 +94,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         page: Option<u64>,
         per_page: Option<u64>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self.api.base_url.join("Util/List/Featured")?;
 
         let mut builder = self
@@ -132,7 +133,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         per_page: Option<u64>,
         sort: Option<&str>,
         filters: Option<&[(&str, &str)]>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self
             .api
             .base_url

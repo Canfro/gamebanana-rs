@@ -2,7 +2,7 @@ use anyhow::Error;
 
 use crate::api::{
     model::{
-        generic_latest_sort::GenericLatestSort, record::AdvancedRecord,
+        generic_latest_sort::GenericLatestSort, results_record::ResultsRecord,
         search_response::SearchResponse,
     },
     section::{
@@ -25,7 +25,7 @@ impl<'a> Section<'a, GameSection> {
         model_exclusions: Option<&[AnySection]>,
         tag_inclusions: Option<&[&str]>,
         tag_exclusions: Option<&[&str]>,
-    ) -> Result<SearchResponse<AdvancedRecord>, Error> {
+    ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self
             .api
             .base_url

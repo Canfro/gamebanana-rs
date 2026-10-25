@@ -2,7 +2,7 @@
     "Util": {
         "Search": [
             "Results", // GET; search.results
-            "Suggestions" // GET; search.suggestions
+            "Suggestions" // GET; section(T).suggestions
         ],
         "Game": [
             "NameMatch" // GET; search.game_name_match
