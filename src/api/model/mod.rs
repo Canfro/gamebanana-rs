@@ -26,3 +26,4 @@ pub mod studio;
 pub mod subject_shaper;
 pub mod submitter;
 pub mod tag;
+pub mod top_games_response;

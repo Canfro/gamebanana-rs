@@ -1,9 +1,6 @@
 use crate::{
     GamebananaApi,
-    api::{
-        self,
-        model::{field::Field, generic_latest_sort::GenericLatestSort, order::Order},
-    },
+    api::model::{field::Field, generic_latest_sort::GenericLatestSort, order::Order},
 };
 
 #[tokio::test]
@@ -76,7 +73,9 @@ async fn latest_submissions() {
 
 #[tokio::test]
 async fn top_games() {
-    todo!()
+    let api = GamebananaApi::new().unwrap();
+
+    api.search().top_games().await.unwrap();
 }
 
 #[tokio::test]
