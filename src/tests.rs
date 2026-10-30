@@ -1,6 +1,6 @@
 use crate::{
     GamebananaApi,
-    api::model::{field::Field, generic_latest_sort::SubmissionsSort, order::Order},
+    api::model::{field::Field, generic_latest_sort::FeedSort, order::ResultsSort},
 };
 
 #[tokio::test]
@@ -13,7 +13,7 @@ async fn results() {
                 "the",
                 Some(page),
                 Some(50),
-                Some(Order::BestMatch),
+                Some(ResultsSort::BestMatch),
                 Some(&[
                     Field::Name,
                     Field::Description,
@@ -65,7 +65,7 @@ async fn latest_submissions() {
     for page in 1..101 {
         println!("Page: {}", page);
         api.search()
-            .latest_submissions(Some(page), Some(50), Some(SubmissionsSort::New), None)
+            .latest_submissions(Some(page), Some(50), Some(FeedSort::New), None)
             .await
             .unwrap();
     }

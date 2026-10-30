@@ -2,18 +2,18 @@ use serde::{Deserialize, Serialize};
 use strum::EnumIter;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, EnumIter)]
-pub enum SubmissionsSort {
+pub enum FeedSort {
     Default,
     New,
     Updated,
 }
 
-impl SubmissionsSort {
+impl FeedSort {
     pub fn as_str(&self) -> &str {
         match self {
-            SubmissionsSort::Default => "default",
-            SubmissionsSort::New => "new",
-            SubmissionsSort::Updated => "updated",
+            FeedSort::Default => "default",
+            FeedSort::New => "new",
+            FeedSort::Updated => "updated",
         }
     }
 }

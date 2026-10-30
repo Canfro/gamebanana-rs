@@ -2,7 +2,7 @@ use anyhow::Error;
 
 use crate::api::{
     model::{
-        generic_latest_sort::SubmissionsSort, results_record::ResultsRecord,
+        generic_latest_sort::FeedSort, results_record::ResultsRecord,
         search_response::SearchResponse,
     },
     section::{
@@ -19,7 +19,7 @@ impl<'a> Section<'a, GameSection> {
         &self,
         id: u64,
         page: Option<u64>,
-        sort: Option<SubmissionsSort>,
+        sort: Option<FeedSort>,
         name: Option<&str>,
         model_inclusions: Option<&[AnySection]>,
         model_exclusions: Option<&[AnySection]>,

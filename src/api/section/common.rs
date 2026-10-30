@@ -6,7 +6,7 @@ use crate::{
     GamebananaApi,
     api::{
         model::{
-            field::Field, order::Order, results_record::ResultsRecord,
+            field::Field, order::ResultsSort, results_record::ResultsRecord,
             search_response::SearchResponse,
         },
         section::model::{modificators_response::ModificatorsResponse, section::SectionTrait},
@@ -34,7 +34,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         search_string: &str,
         page: Option<u64>,
         per_page: Option<u64>,
-        order: Option<Order>,
+        order: Option<ResultsSort>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
     ) -> Result<SearchResponse<ResultsRecord>, Error> {

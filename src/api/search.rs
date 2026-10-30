@@ -4,7 +4,7 @@ use crate::{
     GamebananaApi,
     api::model::{
         community_spotlight::CommunitySpotlight, discussions_record::DiscussionsRecord,
-        field::Field, game::Game, generic_latest_sort::SubmissionsSort, order::Order,
+        field::Field, game::Game, generic_latest_sort::FeedSort, order::ResultsSort,
         results_record::ResultsRecord, search_response::SearchResponse, tag::Tag,
         top_games_response::TopGamesResponse,
     },
@@ -27,7 +27,7 @@ impl<'a> Search<'a> {
         search_string: &str,
         page: Option<u64>,
         per_page: Option<u64>,
-        order: Option<Order>,
+        order: Option<ResultsSort>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
     ) -> Result<SearchResponse<ResultsRecord>, Error> {
@@ -120,7 +120,7 @@ impl<'a> Search<'a> {
         &self,
         page: Option<u64>,
         per_page: Option<u64>,
-        sort: Option<SubmissionsSort>,
+        sort: Option<FeedSort>,
         filter_by_subscribed_games: Option<bool>,
     ) -> Result<SearchResponse<ResultsRecord>, Error> {
         let url = self.api.base_url.join("Util/Homepage/Submissions")?;
