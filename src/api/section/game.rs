@@ -1,10 +1,7 @@
 use anyhow::Error;
 
 use crate::api::{
-    model::{
-        generic_latest_sort::FeedSort, results_record::ResultsRecord,
-        search_response::SearchResponse,
-    },
+    model::{feed_sort::FeedSort, results_record::ResultsRecord, search_response::SearchResponse},
     section::{
         common::Section,
         model::{
