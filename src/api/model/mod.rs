@@ -1,4 +1,6 @@
 pub mod category;
+pub mod community_spotlight;
+pub mod club_or_studio;
 pub mod discussions_record;
 pub mod features;
 pub mod field;
@@ -27,3 +29,4 @@ pub mod subject_shaper;
 pub mod submitter;
 pub mod tag;
 pub mod top_games_response;
+pub mod community_spotlight_record;

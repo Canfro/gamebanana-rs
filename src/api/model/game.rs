@@ -17,8 +17,8 @@ pub struct Game {
     pub icon_url: String,
 
     #[serde(rename = "_sBannerUrl")]
-    banner_url: Option<String>,
+    pub banner_url: Option<String>,
 
     #[serde(rename = "_aModCounts")]
-    mod_counts: Option<HashMap<String, u64>>,
+    pub mod_counts: Option<HashMap<String, u64>>,
 }

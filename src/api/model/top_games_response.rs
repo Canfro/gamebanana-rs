@@ -5,11 +5,11 @@ use crate::api::model::game::Game;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TopGamesResponse {
     #[serde(rename = "Trending")]
-    trending: Vec<Game>,
+    pub trending: Vec<Game>,
 
     #[serde(rename = "Classics")]
-    classics: Vec<Game>,
+    pub classics: Vec<Game>,
 
     #[serde(rename = "New")]
-    new: Vec<Game>,
+    pub new: Vec<Game>,
 }

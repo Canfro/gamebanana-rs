@@ -3,9 +3,10 @@ use anyhow::Error;
 use crate::{
     GamebananaApi,
     api::model::{
-        discussions_record::DiscussionsRecord, field::Field, game::Game,
-        generic_latest_sort::GenericLatestSort, order::Order, results_record::ResultsRecord,
-        search_response::SearchResponse, tag::Tag, top_games_response::TopGamesResponse,
+        community_spotlight::CommunitySpotlight, discussions_record::DiscussionsRecord,
+        field::Field, game::Game, generic_latest_sort::GenericLatestSort, order::Order,
+        results_record::ResultsRecord, search_response::SearchResponse, tag::Tag,
+        top_games_response::TopGamesResponse,
     },
 };
 
@@ -150,8 +151,12 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn community_spotlight() {
-        todo!()
+    pub async fn community_spotlight(&self) -> Result<CommunitySpotlight, Error> {
+        let url = self.api.base_url.join("Util/Homepage/CommunitySpotlight")?;
+
+        let builder = self.api.client.get(url);
+
+        self.api.execute(builder).await
     }
 
     pub async fn featured(

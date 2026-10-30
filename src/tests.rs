@@ -80,7 +80,9 @@ async fn top_games() {
 
 #[tokio::test]
 async fn community_spotlight() {
-    todo!()
+    let api = GamebananaApi::new().unwrap();
+
+    api.search().community_spotlight().await.unwrap();
 }
 
 #[tokio::test]
