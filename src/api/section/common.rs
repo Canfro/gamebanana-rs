@@ -161,4 +161,14 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
 
         self.api.execute(builder).await
     }
+
+    pub async fn categories(
+        &self,
+        sort: CategorySort,
+        show_empty: Option<bool>,
+        game_row: Option<u64>,
+        category_row: Option<u64>,
+    ) -> Result<, Error> {
+        todo!()
+    }
 }
