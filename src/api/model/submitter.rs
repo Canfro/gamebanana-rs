@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::subject_shaper::SubjectShaper;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Submitter {
     #[serde(rename = "_idRow")]
     pub row: u64,

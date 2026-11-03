@@ -1,9 +1,10 @@
-use serde::{Deserialize, Serialize};
+use deserialize_untagged_verbose_error::DeserializeUntaggedVerboseError;
+use serde::Serialize;
 
 use crate::api::model::section_match_count::SectionMatchCount;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
+#[derive(Debug, Clone, Serialize, DeserializeUntaggedVerboseError)]
+#[serde(deny_unknown_fields)]
 pub enum RecordsMetadata {
     AdvancedResponse {
         #[serde(rename = "_nRecordCount")]

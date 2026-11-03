@@ -29,7 +29,7 @@
         "Index", // GET; section(T).index
         "Categories", // GET; section(T).categories
         {
-            ":submission_id": [ // GET; section(T).get_submission
+            ":submission_id": [
                 "ProfilePage", // GET; section(T).get_submission.profile_page
                 "DownloadPage", // GET; section(T).get_submission.download_page
                 "Collections", // GET; section(T).get_submission.collections
@@ -156,15 +156,15 @@
             "BountyContributors" // GET; section(Request).get_submission.bounty_contributors
         ]
     },
-    "ModCategory": {
+    ":model_name/ModCategory": {
         ":rootCategoryId": [
             "SubCategories" // GET; categories.sub_categories
         ]
     },
-    "File": [
+    ":model_name/File": [
         ":file_id" // GET; files.get_file
     ],
-    "Collection": [
+    ":model_name/Collection": [
         "Add", // POST; collections.add_collection
         {
             ":submission_id": [
@@ -172,24 +172,24 @@
             ]
         }
     ],
-    "Issue": [
+    ":model_name/Issue": [
         ":issue_id" // PATCH, DELETE; issues.edit_issue, issues.delete_issue
     ],
-    "Post": {
+    ":model_name/Post": {
         ":post_id": [ // POST, DELETE; posts.reply, posts.delete_post
             "ProfilePage", // GET; posts.profile_page
             "Untrash" // PATCH; posts.untrash_post
         ]
     },
-    "Subscription": [
+    ":model_name/Subscription": [
         ":subscription_id" // DELETE; subscriptions.delete_subscription
     ],
-    "Todo": {
+    ":model_name/Todo": {
         ":todo_id": [ // PATCH, DELETE; todos.edit_todo, todos.delete_todo
             "Toggle" // PATCH; todos.toggle_state
         ]
     },
-    "Update": {
+    ":model_name/Update": {
         ":update_id": [ // PATCH, DELETE; updates.edit_update, updates.delete_update
             "Untrash" // PATCH; updates.untrash_update
         ]

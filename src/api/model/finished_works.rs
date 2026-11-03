@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::finished_work::FinishedWork;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct FinishedWorks {
     #[serde(rename = "_aFinishedWorksOnGameBanana")]
     pub finished_works_on_gamebanana: Vec<FinishedWork>,

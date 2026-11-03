@@ -5,6 +5,7 @@ use crate::api::model::{
 };
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct CommunitySpotlight {
     #[serde(rename = "_aContent")]
     pub content: Vec<CommunitySpotlightRecord>,

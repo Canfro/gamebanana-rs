@@ -4,9 +4,9 @@ use crate::{
     GamebananaApi,
     api::model::{
         community_spotlight::CommunitySpotlight, discussions_record::DiscussionsRecord,
-        feed_sort::FeedSort, field::Field, game::Game, results_record::ResultsRecord,
-        results_sort::ResultsSort, search_response::SearchResponse, tag::Tag,
-        top_games_response::TopGamesResponse,
+        feed_sort::FeedSort, field::Field, game::Game, response::Response,
+        results_record::ResultsRecord, results_sort::ResultsSort, search_response::SearchResponse,
+        tag::Tag, top_games_response::TopGamesResponse,
     },
 };
 
@@ -30,7 +30,7 @@ impl<'a> Search<'a> {
         order: Option<ResultsSort>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self.api.base_url.join("Util/Search/Results")?;
 
         let mut builder = self
@@ -69,7 +69,7 @@ impl<'a> Search<'a> {
         name: &str,
         page: Option<u64>,
         per_page: Option<u64>,
-    ) -> Result<SearchResponse<Game>, Error> {
+    ) -> Result<Response<SearchResponse<Game>>, Error> {
         let url = self.api.base_url.join("Util/Game/NameMatch")?;
 
         let mut builder = self.api.client.get(url).query(&[("_sName", name)]);
@@ -88,7 +88,7 @@ impl<'a> Search<'a> {
         &self,
         tag: &str,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<Tag>, Error> {
+    ) -> Result<Response<SearchResponse<Tag>>, Error> {
         let url = self.api.base_url.join("Util/Generic/Tags")?;
 
         let mut builder = self.api.client.get(url).query(&[("_sTag", tag)]);
@@ -104,7 +104,7 @@ impl<'a> Search<'a> {
         &self,
         game_row: u64,
         page: Option<u64>,
-    ) -> Result<SearchResponse<DiscussionsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<DiscussionsRecord>>, Error> {
         let url = self.api.base_url.join("Util/Generic/Discussion")?;
 
         let mut builder = self.api.client.get(url).query(&[("_idGameRow", game_row)]);
@@ -122,7 +122,7 @@ impl<'a> Search<'a> {
         per_page: Option<u64>,
         sort: Option<FeedSort>,
         filter_by_subscribed_games: Option<bool>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self.api.base_url.join("Util/Homepage/Submissions")?;
 
         let mut builder = self.api.client.get(url);
@@ -143,7 +143,7 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn top_games(&self) -> Result<TopGamesResponse, Error> {
+    pub async fn top_games(&self) -> Result<Response<TopGamesResponse>, Error> {
         let url = self.api.base_url.join("Util/Homepage/TopGames")?;
 
         let builder = self.api.client.get(url);
@@ -151,7 +151,7 @@ impl<'a> Search<'a> {
         self.api.execute(builder).await
     }
 
-    pub async fn community_spotlight(&self) -> Result<CommunitySpotlight, Error> {
+    pub async fn community_spotlight(&self) -> Result<Response<CommunitySpotlight>, Error> {
         let url = self.api.base_url.join("Util/Homepage/CommunitySpotlight")?;
 
         let builder = self.api.client.get(url);
@@ -164,7 +164,7 @@ impl<'a> Search<'a> {
         page: Option<u64>,
         per_page: Option<u64>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self.api.base_url.join("Util/List/Featured")?;
 
         let mut builder = self.api.client.get(url);

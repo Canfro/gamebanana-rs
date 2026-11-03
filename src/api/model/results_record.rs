@@ -947,6 +947,7 @@ pub struct WikiRecord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct WipRecord {
     #[serde(flatten)]
     pub common: CommonRecord,

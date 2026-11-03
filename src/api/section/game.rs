@@ -1,7 +1,10 @@
 use anyhow::Error;
 
 use crate::api::{
-    model::{feed_sort::FeedSort, results_record::ResultsRecord, search_response::SearchResponse},
+    model::{
+        feed_sort::FeedSort, response::Response, results_record::ResultsRecord,
+        search_response::SearchResponse,
+    },
     section::{
         common::Section,
         model::{
@@ -22,7 +25,7 @@ impl<'a> Section<'a, GameSection> {
         model_exclusions: Option<&[AnySection]>,
         tag_inclusions: Option<&[&str]>,
         tag_exclusions: Option<&[&str]>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self
             .api
             .base_url
@@ -69,7 +72,7 @@ impl<'a> Section<'a, GameSection> {
         self.api.execute(builder).await
     }
 
-    pub async fn top_subs(&self, id: u64) -> Result<Vec<TopRecord>, Error> {
+    pub async fn top_subs(&self, id: u64) -> Result<Response<Vec<TopRecord>>, Error> {
         let url = self
             .api
             .base_url

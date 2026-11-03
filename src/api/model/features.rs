@@ -1,6 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Features {
     #[serde(rename = "_sProfileModuleUrl")]
     pub profile_module_url: String,

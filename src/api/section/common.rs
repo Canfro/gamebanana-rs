@@ -6,8 +6,8 @@ use crate::{
     GamebananaApi,
     api::{
         model::{
-            field::Field, results_record::ResultsRecord, results_sort::ResultsSort,
-            search_response::SearchResponse,
+            field::Field, response::Response, results_record::ResultsRecord,
+            results_sort::ResultsSort, search_response::SearchResponse,
         },
         section::model::{
             category_count::CategoryCount, category_sort::CategorySort,
@@ -16,12 +16,6 @@ use crate::{
     },
 };
 
-#[derive(Debug, Clone, Copy)]
-pub struct Section<'a, T: SectionTrait<'a>> {
-    _phantom: PhantomData<T>,
-    pub api: &'a GamebananaApi,
-}
-
 impl<'a> GamebananaApi {
     pub fn section<T: SectionTrait<'a>>(&'a self) -> Section<'a, T> {
         Section {
@@ -29,6 +23,12 @@ impl<'a> GamebananaApi {
             api: self,
         }
     }
+}
+
+#[derive(Debug, Clone, Copy)]
+pub struct Section<'a, T: SectionTrait<'a>> {
+    _phantom: PhantomData<T>,
+    pub api: &'a GamebananaApi,
 }
 
 impl<'a, T: SectionTrait<'a>> Section<'a, T> {
@@ -40,7 +40,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         order: Option<ResultsSort>,
         fields: Option<&[Field]>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self.api.base_url.join("Util/Search/Results")?;
 
         let mut builder = self.api.client.get(url).query(&[
@@ -77,7 +77,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         &self,
         search_string: &str,
         game_row: Option<u64>,
-    ) -> Result<Vec<String>, Error> {
+    ) -> Result<Response<Vec<String>>, Error> {
         let url = self.api.base_url.join("Util/Search/Suggestions")?;
 
         let mut builder = self.api.client.get(url).query(&[
@@ -97,7 +97,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         page: Option<u64>,
         per_page: Option<u64>,
         game_row: Option<u64>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self.api.base_url.join("Util/List/Featured")?;
 
         let mut builder = self
@@ -136,7 +136,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         per_page: Option<u64>,
         sort: Option<&str>,
         filters: Option<&[(&str, &str)]>,
-    ) -> Result<SearchResponse<ResultsRecord>, Error> {
+    ) -> Result<Response<SearchResponse<ResultsRecord>>, Error> {
         let url = self
             .api
             .base_url
@@ -171,7 +171,7 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         show_empty: Option<bool>,
         game_row: Option<u64>,
         category_row: Option<u64>,
-    ) -> Result<Vec<CategoryCount>, Error> {
+    ) -> Result<Response<Vec<CategoryCount>>, Error> {
         let url = self
             .api
             .base_url
@@ -190,6 +190,104 @@ impl<'a, T: SectionTrait<'a>> Section<'a, T> {
         }
 
         self.api.execute(builder).await
+    }
+
+    pub async fn get_submission(&'a self, submission_id: u64) -> Submission<'a, T> {
+        Submission {
+            section: self,
+            submission_id,
+        }
+    }
+}
+
+pub struct Submission<'a, T: SectionTrait<'a>> {
+    pub submission_id: u64,
+    pub section: &'a Section<'a, T>,
+}
+
+impl<'a, T: SectionTrait<'a>> Submission<'a, T> {
+    pub async fn download_page(&self) {
+        todo!()
+    }
+
+    pub async fn collections(&self) {
+        todo!()
+    }
+
+    pub async fn accessor_collections(&self) {
+        todo!()
+    }
+
+    pub async fn add_to_collection(&self) {
+        todo!()
+    }
+
+    pub async fn remove_from_collection(&self) {
+        todo!()
+    }
+
+    pub async fn embeddables_page(&self) {
+        todo!()
+    }
+
+    pub async fn issues(&self) {
+        todo!()
+    }
+
+    pub async fn add_issue(&self) {
+        todo!()
+    }
+
+    pub async fn likes(&self) {
+        todo!()
+    }
+
+    pub async fn like(&self) {
+        todo!()
+    }
+
+    pub async fn posts(&self) {
+        todo!()
+    }
+
+    pub async fn add_post(&self) {
+        todo!()
+    }
+
+    pub async fn subscribers(&self) {
+        todo!()
+    }
+
+    pub async fn add_subscription(&self) {
+        todo!()
+    }
+
+    pub async fn thanks(&self) {
+        todo!()
+    }
+
+    pub async fn add_thanks(&self) {
+        todo!()
+    }
+
+    pub async fn todos(&self) {
+        todo!()
+    }
+
+    pub async fn add_todo(&self) {
+        todo!()
+    }
+
+    pub async fn updates(&self) {
+        todo!()
+    }
+
+    pub async fn files(&self) {
+        todo!()
+    }
+
+    pub async fn update(&self) {
+        todo!()
     }
 }
 

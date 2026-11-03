@@ -1,4 +1,5 @@
 pub mod app;
+pub mod article;
 pub mod common;
 pub mod contest;
 pub mod game;
@@ -6,6 +7,7 @@ pub mod idea;
 pub mod jam;
 pub mod member;
 pub mod model;
+pub mod mods;
 pub mod poll;
 pub mod project;
 pub mod request;

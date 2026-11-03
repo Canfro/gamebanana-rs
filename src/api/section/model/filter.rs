@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::option;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Filter {
     #[serde(rename = "_sType")]
     pub ty: String,

@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use strum::EnumIter;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, EnumIter)]
+#[serde(deny_unknown_fields)]
 pub enum FeedSort {
     Default,
     New,

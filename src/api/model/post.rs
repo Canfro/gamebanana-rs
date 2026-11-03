@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::submitter::Submitter;
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(deny_unknown_fields)]
 pub struct Post {
     #[serde(rename = "_idRow")]
     pub row: u64,

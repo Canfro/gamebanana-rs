@@ -1,7 +1,8 @@
-use serde::{Deserialize, Serialize};
+use deserialize_untagged_verbose_error::DeserializeUntaggedVerboseError;
+use serde::Serialize;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
+#[derive(Debug, Clone, Serialize, DeserializeUntaggedVerboseError)]
+#[serde(deny_unknown_fields)]
 pub enum StringOrUint {
     String(String),
     Uint(u64),

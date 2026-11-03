@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::{category::Category, submitter::Submitter};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct TopRecord {
     #[serde(rename = "_idRow")]
     pub row: u64,

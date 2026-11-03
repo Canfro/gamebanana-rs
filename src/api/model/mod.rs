@@ -19,6 +19,7 @@ pub mod preview_media_metadata;
 pub mod rating_breakdown;
 pub mod ratings_summary;
 pub mod records_metadata;
+pub mod response;
 pub mod results_record;
 pub mod results_sort;
 pub mod search_response;

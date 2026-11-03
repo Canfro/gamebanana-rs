@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::{object_or_empty::ObjectOrEmpty, rating_breakdown::RatingBreakdown};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct RatingsSummary {
     #[serde(rename = "_nRatingsCount")]
     pub ratings_count: Option<u64>,

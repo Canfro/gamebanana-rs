@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::api::model::game::Game;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct TopGamesResponse {
     #[serde(rename = "Trending")]
     pub trending: Vec<Game>,
