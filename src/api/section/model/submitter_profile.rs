@@ -1,6 +1,12 @@
 use serde::{Deserialize, Serialize};
 
-use crate::api::section::model::{bio::Bio, donation_method::DonationMethod, vec_or_map::VecOrMap};
+use crate::api::{
+    model::{studio::Studio, subject_shaper::SubjectShaper},
+    section::model::{
+        bio::Bio, cooltip::Cooltip, cubeatar::Cubeatar, donation_method::DonationMethod,
+        vec_or_map::VecOrMap,
+    },
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -65,6 +71,9 @@ pub struct SubmitterProfile {
     #[serde(rename = "_bHasRipe")]
     pub has_ripe: bool,
 
+    #[serde(rename = "_aAffiliatedStudio")]
+    pub affiliated_studio: Option<Studio>,
+
     #[serde(rename = "_nBuddyCount")]
     pub buddy_count: u64,
 
@@ -83,6 +92,30 @@ pub struct SubmitterProfile {
     #[serde(rename = "_bAccessorIsSubscribed")]
     pub accessor_is_subscribed: bool,
 
+    #[serde(rename = "_aSubjectShaper")]
+    pub subject_shaper: Option<SubjectShaper>,
+
+    #[serde(rename = "_sSubjectShaperCssCode")]
+    pub subject_shaper_css_code: Option<String>,
+
+    #[serde(rename = "_aCooltip")]
+    pub cooltip: Option<Cooltip>,
+
+    #[serde(rename = "_sCooltipCssCode")]
+    pub cooltip_css_code: Option<String>,
+
+    #[serde(rename = "_sUpicUrl")]
+    pub upic_url: Option<String>,
+
+    #[serde(rename = "_sGlobalSubmissionAnnouncement")]
+    pub global_submission_announcement: Option<String>,
+
+    #[serde(rename = "_sGsa")]
+    pub gsa: Option<String>,
+
+    #[serde(rename = "_sStaffProfile")]
+    pub staff_profile: Option<String>,
+
     #[serde(rename = "_aBio")]
     pub bio: Option<Vec<Bio>>,
 
@@ -91,4 +124,16 @@ pub struct SubmitterProfile {
 
     #[serde(rename = "_sDefaultLicense")]
     pub default_license: String,
+
+    #[serde(rename = "_aClearanceLevels")]
+    pub clearance_levels: Option<Vec<String>>,
+
+    #[serde(rename = "_sHdAvatarUrl")]
+    pub hd_avatar_url: Option<String>,
+
+    #[serde(rename = "_sHdHovatarUrl")]
+    pub hd_hovatar_url: Option<String>,
+
+    #[serde(rename = "_aCubeatar")]
+    pub cubeatar: Option<Cubeatar>,
 }

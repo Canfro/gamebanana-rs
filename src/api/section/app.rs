@@ -14,7 +14,7 @@ impl<'a> Submission<'a, AppSection> {
             .section
             .api
             .base_url
-            .join(format!("Mod/{}/ProfilePage", self.submission_id).as_str())?;
+            .join(format!("App/{}/ProfilePage", self.submission_id).as_str())?;
 
         let builder = self.section.api.client.get(url);
 
@@ -30,7 +30,7 @@ mod test {
     async fn profile_page() {
         let api = GamebananaApi::new().unwrap();
 
-        for id in 2..1000 {
+        for id in 0..1000 {
             println!("{}", id);
             api.section::<AppSection>()
                 .get_submission(id)

@@ -14,7 +14,7 @@ impl<'a> Submission<'a, ArticleSection> {
             .section
             .api
             .base_url
-            .join(format!("Mod/{}/ProfilePage", self.submission_id).as_str())?;
+            .join(format!("Article/{}/ProfilePage", self.submission_id).as_str())?;
 
         let builder = self.section.api.client.get(url);
 
@@ -24,36 +24,20 @@ impl<'a> Submission<'a, ArticleSection> {
 
 #[cfg(test)]
 mod test {
-    use crate::{
-        GamebananaApi,
-        api::{model::response::Response, section::model::section::ArticleSection},
-    };
+    use crate::{GamebananaApi, api::section::model::section::ArticleSection};
 
     #[tokio::test]
     async fn profile_page() {
         let api = GamebananaApi::new().unwrap();
 
-        for id in 0..100 {
+        for id in 100..200 {
             println!("{}", id);
-            let r = api
-                .section::<ArticleSection>()
+            api.section::<ArticleSection>()
                 .get_submission(id)
                 .await
                 .profile_page()
                 .await
                 .unwrap();
-
-            if let Response::Ok(r) = r {
-                println!("{:?}", r);
-            } else if let Response::Err {
-                error_code,
-                error_message,
-                ..
-            } = r
-            {
-                println!("{}", error_code);
-                println!("{}", error_message);
-            }
         }
     }
 }

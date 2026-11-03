@@ -1,11 +1,17 @@
+use std::collections::HashMap;
+
 use serde::{Deserialize, Serialize};
 
 use crate::api::{
-    model::{category::Category, features::Features, preview_media::PreviewMedia, studio::Studio},
+    model::{
+        category::Category, features::Features, game::Game, preview_media::PreviewMedia,
+        studio::Studio,
+    },
     section::model::{
-        credit::Credit, embeddables::Embeddables, file::File, game_profile::GameProfile,
+        category_profile::CategoryProfile, credit::Credit, embeddables::Embeddables,
+        featuring::Featuring, file::File, game_profile::GameProfile,
         license_checklist::LicenseChecklist, submitter_profile::SubmitterProfile,
-        tag_profile::TagProfile,
+        tag_profile::TagProfile, trash_info::TrashInfo,
     },
 };
 
@@ -30,7 +36,7 @@ pub struct AppProfilePage {
     pub is_withheld: bool,
 
     #[serde(rename = "_sName")]
-    pub name: String,
+    pub name: Option<String>,
 
     #[serde(rename = "_tsDateModified")]
     pub date_modified: Option<i64>,
@@ -156,14 +162,17 @@ pub struct ArticleProfilePage {
     #[serde(rename = "_bIsTrashed")]
     pub is_trashed: bool,
 
+    #[serde(rename = "_aTrashInfo")]
+    pub trash_info: Option<TrashInfo>,
+
     #[serde(rename = "_bIsWithheld")]
     pub is_withheld: bool,
 
     #[serde(rename = "_sName")]
-    pub name: String,
+    pub name: Option<String>,
 
     #[serde(rename = "_sCommentsMode")]
-    pub comments_mode: String,
+    pub comments_mode: Option<String>,
 
     #[serde(rename = "_tsDateModified")]
     pub date_modified: Option<i64>,
@@ -207,6 +216,9 @@ pub struct ArticleProfilePage {
     #[serde(rename = "_nSubscriberCount")]
     pub subscriber_count: Option<u64>,
 
+    #[serde(rename = "_sDescription")]
+    pub description: Option<String>,
+
     #[serde(rename = "_bGenerateTableOfContents")]
     pub generate_table_contents: Option<bool>,
 
@@ -214,7 +226,7 @@ pub struct ArticleProfilePage {
     pub text: Option<String>,
 
     #[serde(rename = "_bIsObsolete")]
-    pub is_obsolete: bool,
+    pub is_obsolete: Option<bool>,
 
     #[serde(rename = "_nLikeCount")]
     pub like_count: Option<u64>,
@@ -235,10 +247,13 @@ pub struct ArticleProfilePage {
     pub follow_links: Option<bool>,
 
     #[serde(rename = "_aGame")]
-    pub game: GameProfile,
+    pub game: Option<GameProfile>,
 
     #[serde(rename = "_aCategory")]
-    pub category: Category,
+    pub category: Option<CategoryProfile>,
+
+    #[serde(rename = "_aFeaturings")]
+    pub featurings: Option<HashMap<String, Featuring>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -371,10 +386,10 @@ pub struct ModProfilePage {
     pub game: Option<GameProfile>,
 
     #[serde(rename = "_aCategory")]
-    pub category: Option<Category>,
+    pub category: Option<CategoryProfile>,
 
     #[serde(rename = "_aSuperCategory")]
-    pub super_category: Option<Category>,
+    pub super_category: Option<CategoryProfile>,
 
     #[serde(rename = "_aCredits")]
     pub credits: Option<Vec<Credit>>,

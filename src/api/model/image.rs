@@ -33,6 +33,12 @@ pub enum Image {
         #[serde(rename = "_sFile530")]
         file530: Option<String>,
 
+        #[serde(rename = "_sFile800")]
+        file800: Option<String>,
+
+        #[serde(rename = "_sFileUvaDir")]
+        file_uva_dir: Option<String>,
+
         #[serde(rename = "_sFile100UvaDir")]
         file100_uva_dir: Option<String>,
 
@@ -51,6 +57,9 @@ pub enum Image {
         #[serde(rename = "_wFile530")]
         w_file530: Option<u64>,
 
+        #[serde(rename = "_wFile800")]
+        w_file800: Option<u64>,
+
         #[serde(rename = "_hFile100")]
         h_file100: Option<u64>,
 
@@ -59,5 +68,8 @@ pub enum Image {
 
         #[serde(rename = "_hFile530")]
         h_file530: Option<u64>,
+
+        #[serde(rename = "_hFile800")]
+        h_file800: Option<u64>,
     },
 }
